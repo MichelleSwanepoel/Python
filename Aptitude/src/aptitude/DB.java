@@ -27,7 +27,7 @@ public class DB
             System.out.println("Connection succesfull");
             createTables();
             
-            testOutput();
+           // testOutput();
 
         } 
         catch (ClassNotFoundException ex)
@@ -40,22 +40,24 @@ public class DB
         }
     }
 
-    public void testOutput()
+    //testing tables
+  /*  public void testOutput()
     {
-        String sql = "SELECT * FROM Level";
+        String sql = "SELECT * FROM Question";
         try
         {
             ResultSet rs = this.query(sql);
             while (rs.next())
             {
-                System.out.println(rs.getString("LevelID"));
+                System.out.println(rs.getString("Answer"));
             }
         } 
         catch (SQLException ex)
         {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
+
     //method returns the next available log ID from the user table
     private int getNextUserID()
     {
@@ -86,13 +88,13 @@ public class DB
 		String DropTable2 = "DROP TABLE UserQuest";
                 statement = connection.prepareStatement(DropTable2);
 		statement.executeUpdate();
-		String DropTable3 = "DROP TABLE Question";
+		String DropTable3 = "DROP TABLE createQuestion";
                 statement = connection.prepareStatement(DropTable3);
 		statement.executeUpdate();
                 String DropTable4 = "DROP TABLE Level";
                 statement = connection.prepareStatement(DropTable4);
-		statement.executeUpdate();*/
-                
+		statement.executeUpdate();
+                */
 		String createUser = "CREATE TABLE IF NOT EXISTS User " 
 				+ "(UserID     INT PRIMARY KEY         NOT NULL, "
                                 + "Name        TEXT                    NOT NULL)";
@@ -103,7 +105,7 @@ public class DB
 			+ "(UserID    INT    NOT NULL,"
 			+ "QuestID    INT    NOT NULL,"
 			+ "PRIMARY KEY (UserID,QuestID),"
-                        + "FOREIGN KEY (UserID) REFERENCES User(UserID),"
+                        +  " FOREIGN KEY (UserID) REFERENCES User(UserID),"
                         + "FOREIGN KEY (QuestID) REFERENCES Question(QID))";
 		this.update(createUserQuest);
 		
@@ -117,9 +119,8 @@ public class DB
 		this.update(createQuestion);			  
 			  
 		String createLevel = "CREATE TABLE IF NOT EXISTS Level "
-			  + "(LevelID  TEXT PRIMARY KEY     NOT NULL,"
-			  + "Score      INT     NOT NULL)";		
-
+			  + "(LevelID   TEXT PRIMARY KEY   NOT NULL,"
+			  + "Score      INT     NOT NULL)";	
 		this.update(createLevel);
 		this.addQuest();
 		
@@ -138,24 +139,28 @@ public class DB
     {
         try 
         {
-            ResultSet rs = this.query("SELECT * FROM Level WHERE LevelID = 'EASY'");
+            ResultSet rs = this.query("SELECT * FROM Level");
             if (!rs.next())
             {
-                String insertTest = "INSERT INTO Level VALUES('EASY',1)";
-                this.update(insertTest);
+                String insert = "INSERT INTO Level VALUES('EASY',1)";
+                this.update(insert);
+                insert = "INSERT INTO Level VALUES('MEDIUM',2)";
+                this.update(insert);
+                insert = "INSERT INTO Level VALUES('HARD',3)";
+                this.update(insert);
             }
-            rs = this.query("SELECT * FROM Level WHERE LevelID = 'MEDIUM'");
+            
+            rs = this.query("SELECT * FROM Question");
             if (!rs.next())
             {
-                String insertTest = "INSERT INTO Level VALUES('MEDIUM',2)";
-                this.update(insertTest);
+                String insert = "INSERT INTO Question VALUES(1, 'Unscramble \"they see\" into a word that represents a body part.', 'the eyes', 'EASY', NULL)";
+                this.update(insert);
+                insert = "INSERT INTO Question VALUES(2, 'A farmer has 17 sheep and all but 9 die, how many sheep are left?', '9', 'EASY', NULL)";
+                this.update(insert);
+                insert = "INSERT INTO Question VALUES (3, 'In the final stretch of a marathon, you quickly ran by the person who is in second place, what place are you in?','2','EASY',NULL)";
+                this.update(insert);
             }
-            rs = this.query("SELECT * FROM Level WHERE LevelID = 'HARD'");
-            if (!rs.next())
-            {
-                String insertTest = "INSERT INTO Level VALUES('HARD',3)";
-                this.update(insertTest);
-            }
+            
                 
         } 
         catch (SQLException ex){Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);}
@@ -178,5 +183,6 @@ public class DB
         statement = connection.prepareStatement(query);
         resultSet = statement.executeQuery();
         return resultSet;
+        
     }
 }
