@@ -30,19 +30,21 @@ public class StartPage extends javax.swing.JFrame {
 
         btnStart = new javax.swing.JButton();
         btnEnter = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         txtStart = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MazeProg");
-        setPreferredSize(new java.awt.Dimension(550, 362));
+        setPreferredSize(new java.awt.Dimension(469, 352));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
         });
+        getContentPane().setLayout(null);
 
         btnStart.setText("Start");
         btnStart.setFocusTraversalPolicyProvider(true);
@@ -52,6 +54,8 @@ public class StartPage extends javax.swing.JFrame {
                 btnStartActionPerformed(evt);
             }
         });
+        getContentPane().add(btnStart);
+        btnStart.setBounds(180, 220, 57, 30);
 
         btnEnter.setVisible(false);
         btnEnter.setText("Enter");
@@ -60,6 +64,18 @@ public class StartPage extends javax.swing.JFrame {
                 btnEnterActionPerformed(evt);
             }
         });
+        getContentPane().add(btnEnter);
+        btnEnter.setBounds(180, 170, 59, 23);
+
+        jLabel1.setVisible(false);
+        jLabel1.setText("Firstly: unscramble \"tarts\" into a new beginning");
+        jLabel1.setToolTipText("");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(80, 70, 358, 14);
+
+        txtStart.setVisible(false);
+        getContentPane().add(txtStart);
+        txtStart.setBounds(170, 110, 88, 30);
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
@@ -68,57 +84,19 @@ public class StartPage extends javax.swing.JFrame {
         jTextArea1.setText("Navigate your way through the maze. Answer any questions that may pop up. Your results will be shown upon completion");
         jScrollPane1.setViewportView(jTextArea1);
 
-        jLabel1.setVisible(false);
-        jLabel1.setText("Firstly: unscramble \"tarts\" into a new beginning");
-        jLabel1.setToolTipText("");
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(37, 11, 350, 140);
 
-        txtStart.setVisible(false);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(btnEnter))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addComponent(txtStart, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(89, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEnter)
-                .addGap(44, 44, 44))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Robert\\Desktop\\brain-background-16576876.jpg")); // NOI18N
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(0, 0, 469, 290);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         // TODO add your handling code here:
+        jTextArea1.setVisible(false);
         jTextArea1.setVisible(false);
         jLabel1.setVisible(true);
         txtStart.setVisible(true);
@@ -184,6 +162,7 @@ public class StartPage extends javax.swing.JFrame {
     private javax.swing.JButton btnEnter;
     private javax.swing.JButton btnStart;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField txtStart;
