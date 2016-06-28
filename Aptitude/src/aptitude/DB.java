@@ -48,13 +48,13 @@ public class DB
 		String DropTable2 = "DROP TABLE UserQuest";
                 statement = connection.prepareStatement(DropTable2);
 		statement.executeUpdate();
-		String DropTable3 = "DROP TABLE createQuestion";
+		String DropTable3 = "DROP TABLE Question";
                 statement = connection.prepareStatement(DropTable3);
 		statement.executeUpdate();
-                String DropTable4 = "DROP TABLE createLevel";
+                String DropTable4 = "DROP TABLE Level";
                 statement = connection.prepareStatement(DropTable4);
-		statement.executeUpdate();
-                */
+		statement.executeUpdate();*/
+                
 		String createUser = "CREATE TABLE IF NOT EXISTS User " 
 				+ "(UserID     INT PRIMARY KEY         NOT NULL, "
                                 + "Name        TEXT                    NOT NULL)";
@@ -65,7 +65,7 @@ public class DB
 			+ "(UserID    INT    NOT NULL,"
 			+ "QuestID    INT    NOT NULL,"
 			+ "PRIMARY KEY (UserID,QuestID),"
-                        +  " FOREIGN KEY (UserID) REFERENCES User(UserID),"
+                        + "FOREIGN KEY (UserID) REFERENCES User(UserID),"
                         + "FOREIGN KEY (QuestID) REFERENCES Question(QID))";
 		this.update(createUserQuest);
 		
@@ -79,9 +79,8 @@ public class DB
 		this.update(createQuestion);			  
 			  
 		String createLevel = "CREATE TABLE IF NOT EXISTS Level "
-			  + "(LevelID   TEXT    NOT NULL,"
-			  + "Score      INT     NOT NULL,"
-                          + "PRIMARY KEY (LevelID))";		
+			  + "(LevelID  TEXT PRIMARY KEY     NOT NULL,"
+			  + "Score      INT     NOT NULL)";		
 		this.update(createLevel);
 		this.addQuest();
 		
