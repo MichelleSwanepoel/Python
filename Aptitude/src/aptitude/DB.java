@@ -4,6 +4,7 @@ package aptitude;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 public class DB
@@ -25,6 +26,8 @@ public class DB
             connection = DriverManager.getConnection(url);
             System.out.println("Connection succesfull");
             createTables();
+            
+            testOutput();
 
         } 
         catch (ClassNotFoundException ex)
@@ -37,6 +40,41 @@ public class DB
         }
     }
 
+    public void testOutput()
+    {
+        String sql = "SELECT * FROM Level";
+        try
+        {
+            ResultSet rs = this.query(sql);
+            while (rs.next())
+            {
+                System.out.println(rs.getString("LevelID"));
+            }
+        } 
+        catch (SQLException ex)
+        {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    //method returns the next available log ID from the user table
+    private int getNextUserID()
+    {
+        int logID = 0;
+        try
+        {
+            ResultSet rs = this.query("SELECT * FROM User");
+            while (rs.next())
+            {
+                logID = rs.getInt("UserID");//ID field for the respective table
+            }
+        }
+        catch (SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, "Unable to add user", "Upload Error", JOptionPane.ERROR_MESSAGE);
+        }
+        logID+=1;//increment because it represents the next available ID
+        return logID;
+    }
     public void createTables( )
     {
       try 
@@ -51,7 +89,7 @@ public class DB
 		String DropTable3 = "DROP TABLE createQuestion";
                 statement = connection.prepareStatement(DropTable3);
 		statement.executeUpdate();
-                String DropTable4 = "DROP TABLE createLevel";
+                String DropTable4 = "DROP TABLE Level";
                 statement = connection.prepareStatement(DropTable4);
 		statement.executeUpdate();
                 */
@@ -79,9 +117,8 @@ public class DB
 		this.update(createQuestion);			  
 			  
 		String createLevel = "CREATE TABLE IF NOT EXISTS Level "
-			  + "(LevelID   TEXT    NOT NULL,"
-			  + "Score      INT     NOT NULL,"
-                          + "PRIMARY KEY (LevelID))";		
+			  + "(LevelID   TEXT PRIMARY KEY   NOT NULL,"
+			  + "Score      INT     NOT NULL)";	
 		this.update(createLevel);
 		this.addQuest();
 		
@@ -100,8 +137,25 @@ public class DB
     {
         try 
         {
-            String insertTest = "INSERT INTO Level VALUES('EASY',10)";
-            this.update(insertTest);
+            ResultSet rs = this.query("SELECT * FROM Level WHERE LevelID = 'EASY'");
+            if (!rs.next())
+            {
+                String insertTest = "INSERT INTO Level VALUES('EASY',1)";
+                this.update(insertTest);
+            }
+            rs = this.query("SELECT * FROM Level WHERE LevelID = 'MEDIUM'");
+            if (!rs.next())
+            {
+                String insertTest = "INSERT INTO Level VALUES('MEDIUM',2)";
+                this.update(insertTest);
+            }
+            rs = this.query("SELECT * FROM Level WHERE LevelID = 'HARD'");
+            if (!rs.next())
+            {
+                String insertTest = "INSERT INTO Level VALUES('HARD',3)";
+                this.update(insertTest);
+            }
+                
         } 
         catch (SQLException ex){Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);}
     }
