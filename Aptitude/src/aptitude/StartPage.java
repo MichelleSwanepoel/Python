@@ -10,6 +10,8 @@ package aptitude;
  * @author Robert
  */
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 public class StartPage extends javax.swing.JFrame {
 
     /**
@@ -18,7 +20,11 @@ public class StartPage extends javax.swing.JFrame {
     public StartPage() {
         initComponents();
     }
-
+//  public void close(){
+//    WindowEvent winClosingEvent = new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
+//    Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
+//}
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -111,7 +117,11 @@ public class StartPage extends javax.swing.JFrame {
         if(Ans.toLowerCase().equals("start"))
         {
           JOptionPane.showMessageDialog(null,"YAY");
-        } 
+          //close();
+          this.setVisible(false);
+          Maze m = new Maze();
+          m.setVisible(true);
+         } 
         else
         {
              JOptionPane.showMessageDialog(null,"Try Again");
@@ -157,6 +167,7 @@ public class StartPage extends javax.swing.JFrame {
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnter;
