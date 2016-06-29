@@ -135,9 +135,9 @@ public class Maze extends javax.swing.JFrame {
         
         URL url;
          try { 
-//            url = new URL("http://www.digitalphotoartistry.com/rose1.jpg");
-//            Image image = ImageIO.read(url);
-               Image image = ImageIO.read(new File("C:\\Users\\Robert\\Pictures\\pictures\\floral.png"));
+ //           url = new URL("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png");
+   //         Image image = ImageIO.read(url);
+              Image image = ImageIO.read(new File("C:\\Users\\Robert\\Pictures\\pictures\\floral.png"));
             ImageIcon icon = new ImageIcon(resizepic(image, jLabel1.getWidth(),jLabel1.getHeight()));
            jLabel1.setIcon(icon);
           
