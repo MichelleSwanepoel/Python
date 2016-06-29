@@ -88,6 +88,7 @@ public class StartPage extends javax.swing.JFrame {
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
         jTextArea1.setText("Navigate your way through the maze. Answer any questions that may pop up. Your results will be shown upon completion");
+        jTextArea1.setWrapStyleWord(true);
         jScrollPane1.setViewportView(jTextArea1);
 
         getContentPane().add(jScrollPane1);
@@ -130,7 +131,9 @@ public class StartPage extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
+        jLabel2.setSize(this.getSize());
         setLocationRelativeTo(null);
+        
     }//GEN-LAST:event_formWindowActivated
 
     /**

@@ -12,6 +12,13 @@ package aptitude;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 //import java.util.Timer;
 //import java.util.TimerTask;
 //import java.util.*;
@@ -45,6 +52,7 @@ public class Maze extends javax.swing.JFrame {
                 formWindowActivated(evt);
             }
         });
+        getContentPane().setLayout(null);
 
         btn1.setText("jButton1");
         btn1.addActionListener(new java.awt.event.ActionListener() {
@@ -52,6 +60,8 @@ public class Maze extends javax.swing.JFrame {
                 btn1ActionPerformed(evt);
             }
         });
+        getContentPane().add(btn1);
+        btn1.setBounds(94, 109, 73, 23);
 
         btn2.setText("jButton2");
         btn2.addActionListener(new java.awt.event.ActionListener() {
@@ -59,39 +69,12 @@ public class Maze extends javax.swing.JFrame {
                 btn2ActionPerformed(evt);
             }
         });
+        getContentPane().add(btn2);
+        btn2.setBounds(111, 150, 73, 23);
 
-        jLabel1.setText("jLabel1");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(btn1)
-                        .addGap(1, 1, 1)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(btn2)))
-                .addContainerGap(127, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(btn1)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(127, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Robert\\Pictures\\Sample Pictures\\Tulips.jpg")); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(-380, -120, 1320, 610);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -118,6 +101,14 @@ public class Maze extends javax.swing.JFrame {
         
         q.setVisible(true);
     }
+    private Image resizepic(Image pic,int w,int h){
+    BufferedImage rs = new BufferedImage(w,h,BufferedImage.TYPE_INT_RGB);
+    Graphics2D g = rs.createGraphics();
+    g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+    g.drawImage(pic,0,0,w,h,null);
+    g.dispose();
+    return rs;
+    }
     public boolean QForm=false;// so that next button wont be triggered before question is answered
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
         // TODO add your handling code here:
@@ -136,8 +127,23 @@ public class Maze extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        setUndecorated(true);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        jLabel1.setSize(this.getSize());
+        
+        URL url;
+         try { 
+            url = new URL("http://www.digitalphotoartistry.com/rose1.jpg");
+            Image image = ImageIO.read(url);
+            ImageIcon icon = new ImageIcon(resizepic(image, jLabel1.getWidth(),jLabel1.getHeight()));
+           jLabel1.setIcon(icon);
+          
+        } catch (IOException ex) {
+            Logger.getLogger(Maze.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       setUndecorated(true);
+       
     }//GEN-LAST:event_formWindowActivated
 
     /**
