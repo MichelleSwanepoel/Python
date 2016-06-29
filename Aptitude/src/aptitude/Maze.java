@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -134,8 +135,9 @@ public class Maze extends javax.swing.JFrame {
         
         URL url;
          try { 
-            url = new URL("C:\\Users\\Robert\\Pictures\\Sample Pictures\\Tulips.jpg");
-            Image image = ImageIO.read(url);
+//            url = new URL("http://www.digitalphotoartistry.com/rose1.jpg");
+//            Image image = ImageIO.read(url);
+               Image image = ImageIO.read(new File("C:\\Users\\Robert\\Pictures\\pictures\\floral.png"));
             ImageIcon icon = new ImageIcon(resizepic(image, jLabel1.getWidth(),jLabel1.getHeight()));
            jLabel1.setIcon(icon);
           
