@@ -1,1 +1,5 @@
 /Aptitude/nbproject/private/
+/Aptitude/build/
+build-impl.xml
+genfiles.properties
+project.properties
