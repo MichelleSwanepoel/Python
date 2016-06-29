@@ -36,9 +36,15 @@ public class Maze extends javax.swing.JFrame {
 
         btn1 = new javax.swing.JButton();
         btn2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Maze");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         btn1.setText("jButton1");
         btn1.addActionListener(new java.awt.event.ActionListener() {
@@ -54,6 +60,8 @@ public class Maze extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -62,19 +70,26 @@ public class Maze extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(94, 94, 94)
-                        .addComponent(btn1))
+                        .addComponent(btn1)
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(111, 111, 111)
                         .addComponent(btn2)))
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(btn1)
-                .addGap(18, 18, 18)
-                .addComponent(btn2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(btn1)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(127, Short.MAX_VALUE))
         );
 
@@ -97,20 +112,33 @@ public class Maze extends javax.swing.JFrame {
 //          }
 //      }
 //     }
-    
+    private void Questionform(){
+        Question q = new Question();
+        //make certain components visible depending on question
+        
+        q.setVisible(true);
+    }
+    public boolean QForm=false;// so that next button wont be triggered before question is answered
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null,"YAY"); 
-        TimerThread s = new TimerThread();
-        s.start();
+//        TimerThread s = new TimerThread();
+//        s.start();
+        Questionform();
         btn2.doClick();
-        s.interrupt();
+      //  s.interrupt();
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null,"fdsfbgfs");
     }//GEN-LAST:event_btn2ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        setUndecorated(true);
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -150,5 +178,6 @@ public class Maze extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
     private javax.swing.JButton btn2;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
