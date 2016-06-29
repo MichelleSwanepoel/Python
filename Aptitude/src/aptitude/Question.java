@@ -10,7 +10,7 @@ class Question
     String level;
     String question;
     String answer;
-    Blob blob;
+    byte[] blob;
 
     public void setScore(int _score)
     {
@@ -37,12 +37,12 @@ class Question
         answer = _answer;
     }
 
-    public Blob getBlob()
+    public byte[] getBlob()
     {
         return blob;
     }
 
-    public void setBlob(Blob _blob)
+    public void setBlob(byte[] _blob)
     {
         blob = _blob;
     }

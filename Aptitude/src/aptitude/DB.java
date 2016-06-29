@@ -94,7 +94,7 @@ public class DB
                 String DropTable4 = "DROP TABLE Level";
                 statement = connection.prepareStatement(DropTable4);
 		statement.executeUpdate();
-                */
+               */
 		String createUser = "CREATE TABLE IF NOT EXISTS User " 
 				+ "(UserID     INT PRIMARY KEY         NOT NULL, "
                                 + "Name        TEXT                    NOT NULL)";

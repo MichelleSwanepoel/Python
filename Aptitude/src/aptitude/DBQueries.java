@@ -14,9 +14,9 @@ public class DBQueries
     DBQueries()
     {
         db = new DB();
-        questions.addAll(getQuestions("Easy"));
-        questions.addAll(getQuestions("Medium"));
-        questions.addAll(getQuestions("Hard"));
+        questions.addAll(getQuestions("EASY"));
+        //questions.addAll(getQuestions("MEDIUM"));
+//        questions.addAll(getQuestions("HARD"));
     }
 
     /**
@@ -32,11 +32,11 @@ public class DBQueries
     {
         try
         { 
-            ResultSet result = db.query("SELECT * FROM 'User' WHERE 'Name' IN(name);");
+            ResultSet result = db.query("SELECT * FROM 'User' WHERE 'Name' IN ('"+name+"')");
             if (!result.next())
             {
                 userId = db.getNextUserID();
-                db.update("INSERT INTO User VALUES(userID(),name)");
+                db.update("INSERT INTO User VALUES('"+db.getNextUserID()+"','"+name+"')");
                 return true;
             }
             return false;
@@ -44,6 +44,7 @@ public class DBQueries
         }
         catch (SQLException exc)
         {
+            System.out.println(exc.getMessage());
             return false;
         }
     }
@@ -55,7 +56,7 @@ public class DBQueries
      * @param difficulty The difficulty of the question that should be returned
      * @return The next question
      */
-    public Question getQuestion(String difficulty)
+    public Question getNextQuestion(String difficulty)
     {
         for (Question question : questions)
         {
@@ -83,18 +84,18 @@ public class DBQueries
         ArrayList<Question> resultArray = new ArrayList<>();
         try
         {
-            ResultSet result = db.query("SELECT * FROM Question WHERE LevelID IN (difficulty)");
+            ResultSet result = db.query("SELECT * FROM Question WHERE LevelID IN ('" + difficulty + "')");
 
             while (result.next())
             {
-                ResultSet levelResult = db.query("SELECT SCORE FROM Level WHERE LevelID IN (difficulty)"/*"Query that selects obtains the score of the question by using the LevelID"*/);
+                ResultSet levelResult = db.query("SELECT SCORE FROM Level WHERE LevelID IN ('" + difficulty + "')"/*"Query that selects obtains the score of the question by using the LevelID"*/);
                 Question question = new Question();
-                question.setAnswer(result.getObject("Answer", String.class));
-                question.setBlob(result.getBlob("Image"));
-                question.setQuestion(result.getObject("Question", String.class));
+                question.setAnswer(result.getString("Answer"));
+                question.setBlob(result.getBytes("Image"));
+                question.setQuestion(result.getString("QuestText"));
                 question.setLevel(difficulty);
-                question.setScore(levelResult.getObject("Score", Integer.class));
-                question.setQuestID(levelResult.getObject("QID", Integer.class));
+                question.setScore(levelResult.getInt("Score"));
+                question.setQuestID(result.getInt("QID"));
                 resultArray.add(question);
             }
 

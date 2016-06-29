@@ -5,7 +5,8 @@ public class Aptitude
 
     public static void main(String[] args)
     {
-        new DB();
+        DBQueries queries = new DBQueries();
+        queries.addUser("michelle");
         
     }
     
