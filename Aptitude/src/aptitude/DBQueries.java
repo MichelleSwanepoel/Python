@@ -34,7 +34,7 @@ public class DBQueries
             ResultSet result = db.query("SELECT * FROM 'User' WHERE 'Name' IN(name);");
             if (!result.next())
             {
-                userId = db.getUserID();
+                userId = db.getNextUserID();
                 db.update("INSERT INTO User VALUES(userID(),name)");
                 return true;
             }

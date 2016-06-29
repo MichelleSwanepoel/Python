@@ -59,7 +59,7 @@ public class DB
     }*/
 
     //method returns the next available log ID from the user table
-    private int getNextUserID()
+    public int getNextUserID()
     {
         int logID = 0;
         try
