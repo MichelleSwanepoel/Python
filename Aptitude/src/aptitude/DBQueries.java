@@ -30,11 +30,12 @@ public class DBQueries
     public Boolean addUser(String name)
     {
         try
-        {
-            ResultSet result = db.query("Query that selects users with the name 'name'");
+        { 
+            ResultSet result = db.query("SELECT * FROM 'User' WHERE 'Name' IN(name);");
             if (!result.next())
             {
-                db.update("Query that adds the user to the database and sets the name");
+                userId = db.getUserID();
+                db.update("INSERT INTO User VALUES(userID(),name)");
                 return true;
             }
             return false;
@@ -61,11 +62,11 @@ public class DBQueries
         ArrayList<Question> resultArray = new ArrayList<>();
         try
         {
-            ResultSet result = db.query("Query that selects all questions where the LevelID is equal to difficulty");
+            ResultSet result = db.query("SELECT * FROM Question WHERE LevelID IN (difficulty)");
 
             while (result.next())
             {
-                ResultSet levelResult = db.query("Query that selects obtains the score of the question by using the LevelID");
+                ResultSet levelResult = db.query("SELECT SCORE FROM Level WHERE LevelID IN (difficulty)"/*"Query that selects obtains the score of the question by using the LevelID"*/);
                 Question question = new Question();
                 question.setAnswer(result.getObject("Answer", String.class));
                 question.setBlob(result.getBlob("Image"));
