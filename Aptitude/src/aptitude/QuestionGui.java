@@ -9,13 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,8 +37,9 @@ public class QuestionGui extends javax.swing.JFrame {
         btnAns = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAQ = new javax.swing.JTextArea();
-        spinAns = new javax.swing.JSpinner();
         txtAns = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -72,25 +67,35 @@ public class QuestionGui extends javax.swing.JFrame {
         txtAQ.setWrapStyleWord(true);
         jScrollPane1.setViewportView(txtAQ);
 
+        jLabel2.setText("If your answer is a number, type in the digits. Otherwise enter the characters");
+
+        jLabel3.setVisible(false);
+        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel3.setText("jLabel3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(356, 356, 356)
+                        .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtAns, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(spinAns, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)
-                                .addComponent(btnAns, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtAns, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(161, 161, 161)
+                                .addComponent(btnAns, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(195, 195, 195)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(186, 186, 186)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -100,18 +105,22 @@ public class QuestionGui extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(txtAns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAns)
-                    .addComponent(spinAns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(81, 81, 81))
+                    .addComponent(txtAns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(80, 80, 80))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
    public Maze m= new Maze();
+   public Question q = new Question();
+   public String actAns,Ans;
     public void populate(String type, boolean isImage){
   //set certain components based on question type
   //Make use of image
@@ -148,13 +157,46 @@ private void setImage(){
 //            Logger.getLogger(QuestionGui.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 }
+    private void proceed(){
+       boolean random = StartPage.userdb.addQuestionToListOfCorrectQuestions(q, Ans);
+       
+       this.setVisible(false);
+       m.qcount++;
+       m.nextQ(m.qcount);  
+    }
+    private boolean IsNumber(String s){
 
+        for (int i = 0; i < s.length(); i++) {
+            if(!Character.isDigit(s.charAt(i))) {  
+                return false;
+            }        
+        }
+        return true;
+    }
     private void btnAnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnsActionPerformed
         // TODO add your handling code here:
 //        check answer, update score
-       this.setVisible(false);
-       m.qcount++;
-       m.nextQ(m.qcount);
+        Ans = txtAns.getText();
+      actAns = q.getAnswer();
+      jLabel3.setVisible(false);
+    if(IsNumber(actAns)&&IsNumber(Ans)){
+     proceed();
+    }
+    else if(!IsNumber(actAns)&&!IsNumber(Ans)){
+        proceed();
+    }
+    else {
+        if(IsNumber(actAns)){
+         //JOptionPane.showMessageDialog(null,"Please enter a number");
+         jLabel3.setText("Please enter a number");
+         jLabel3.setVisible(true);
+        }
+        else if(!(IsNumber(actAns))){
+         // JOptionPane.showMessageDialog(null,"Please enter a word or sentence"); 
+         jLabel3.setText("Please enter a word or sentence");
+         jLabel3.setVisible(true);
+        }
+    }
 //       int count =m.getNum();
 //       m.nextQ(count);
 //       m.arrbut[count]=true;
@@ -163,6 +205,11 @@ private void setImage(){
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         setLocationRelativeTo(null);
+        jLabel3.setVisible(false);
+     q=  StartPage.userdb.getNextQuestion("EASY");
+    txtAQ.setText(q.getQuestion());
+    
+    txtAns.setText("");
       // m.arrbut[0]=true;
 
 //            
@@ -214,8 +261,9 @@ private void setImage(){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAns;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner spinAns;
     private javax.swing.JTextArea txtAQ;
     private javax.swing.JTextField txtAns;
     // End of variables declaration//GEN-END:variables
