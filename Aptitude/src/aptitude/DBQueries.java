@@ -21,7 +21,8 @@ public class DBQueries
 
     /**
      * Function that sets the name of a user in the database. The database is
-     * first queried to determine if this user already exists. This function will be called from the GUI
+     * first queried to determine if this user already exists. This function
+     * will be called from the GUI
      *
      * @param name String used to set the name
      * @return False if the user could not be added and true if the user was
@@ -46,17 +47,19 @@ public class DBQueries
             return false;
         }
     }
-    
+
     /**
-     * Function that returns the next question with the same difficulty as the parameter, and removes it from the list of questions
+     * Function that returns the next question with the same difficulty as the
+     * parameter, and removes it from the list of questions
+     *
      * @param difficulty The difficulty of the question that should be returned
-     * @return The next question 
+     * @return The next question
      */
     public Question getQuestion(String difficulty)
     {
         for (Question question : questions)
         {
-            if(question.getLevel().equals(difficulty))
+            if (question.getLevel().equals(difficulty))
             {
                 questions.remove(question);
                 return question;
@@ -102,18 +105,62 @@ public class DBQueries
             return null;
         }
     }
-    
+
     /**
-     * Function that adds a question to the list of correct questions associated with the user, if the answer that the user gave is correct
-     * @param question The question object that contains the question asked with the answer
-     * @param answer 
+     * Function that adds a question to the list of correct questions associated
+     * with the user, if the answer that the user gave is correct
+     *
+     * @param question The question object that contains the question asked with
+     * the answer
+     * @param answer The answer that the user entered
+     * @return might have to change the type in order to update the progress bar
+     * correctly
      */
-    public void addQuestionToListOfCorrectQuestions(Question question, String answer)
+    public Boolean addQuestionToListOfCorrectQuestions(Question question, String answer)
     {
-        if(question.getAnswer().equals(answer))
+        if (question.getAnswer().equals(answer))
         {
-            
+            try
+            {
+                db.update("Query that inserts into the UserQuest table, where the UserID is the global variable UserId and the questionID is"
+                        + "equal to question.getID()");
+                return true;
+            }
+            catch (SQLException ex)
+            {
+                return false;
+            }
         }
+
+        return false;
+    }
+
+    /**
+     * Function that calculates the score of the user so far
+     *
+     * @return The score of the user
+     */
+    public int getScoreOfUserSoFar()
+    {
+        int score = 0;
+        try
+        {
+            //The result should be a list of 
+            ResultSet result = db.query("String that queries all the questions that are linked with the current user, in other words, all the questions that the user answered correctly so far");
+
+            while (result.next())
+            {
+                ResultSet questionLevel = db.query("String that queries the score of the current question from the Level table");
+
+                score += questionLevel.getObject("Score", Integer.class);
+            }
+        }
+        catch (SQLException ex)
+        {
+            return -1;
+        }
+
+        return score;
     }
 
 }
