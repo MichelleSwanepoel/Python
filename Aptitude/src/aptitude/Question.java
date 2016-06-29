@@ -9,6 +9,11 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -124,8 +129,16 @@ private Image resizepic(Image pic,int w,int h){
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         setLocationRelativeTo(null);
-       // ImageIcon i = new ImageIcon(resizepic(/*image to use*/,jLabel1.getWidth(),jLabel1.getHeight()));
-        setExtendedState(JFrame.MAXIMIZED_BOTH); 
+//           Image image;
+//        try {
+//            image = ImageIO.read(new File("C:\\Users\\Robert\\Pictures\\pictures\\floral.png"));
+//            ImageIcon icon = new ImageIcon(resizepic(image, jLabel1.getWidth(),jLabel1.getHeight()));
+//             jLabel1.setIcon(icon);
+//        } catch (IOException ex) {
+//            Logger.getLogger(Question.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//            
+       setExtendedState(JFrame.MAXIMIZED_BOTH); 
         setUndecorated(true);
     }//GEN-LAST:event_formWindowActivated
 
