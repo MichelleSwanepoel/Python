@@ -46,7 +46,7 @@ public class Question extends javax.swing.JFrame {
         spinAns = new javax.swing.JSpinner();
         txtAns = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -153,14 +153,15 @@ private void setImage(){
         // TODO add your handling code here:
 //        check answer, update score
        this.setVisible(false);
-       m.count++;
-       m.nextQ(m.count);
+       int count =m.getNum();
+       m.nextQ(count);
+       m.arrbut[count]=true;
     }//GEN-LAST:event_btnAnsActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         setLocationRelativeTo(null);
-       
+       m.arrbut[0]=true;
 
 //            
 //       setExtendedState(JFrame.MAXIMIZED_BOTH); 

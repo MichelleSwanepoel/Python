@@ -103,6 +103,7 @@ public class StartPage extends javax.swing.JFrame {
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         // TODO add your handling code here:
+        String name = JOptionPane.showInputDialog("Please enter your name");
         jTextArea1.setVisible(false);
         jTextArea1.setVisible(false);
         jLabel1.setVisible(true);

@@ -44,6 +44,7 @@ public class Maze extends javax.swing.JFrame {
 
         btn1 = new javax.swing.JButton();
         btn2 = new javax.swing.JButton();
+        btn3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -72,13 +73,29 @@ public class Maze extends javax.swing.JFrame {
         });
         getContentPane().add(btn2);
         btn2.setBounds(111, 150, 73, 23);
+
+        btn3.setText("3");
+        btn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn3);
+        btn3.setBounds(340, 110, 39, 23);
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 630, 330);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    int count =0;
-    boolean[] arrbut = {false,false};
+    
+    boolean[] arrbut = {false,false,false};
+    public int getNum(){
+       int counter =0;
+       while (arrbut[counter]==true){
+           counter++;
+       }
+      return counter; 
+     }
     private void Questionform(){
         Question q = new Question();
         //make certain components visible depending on question
@@ -100,7 +117,9 @@ public class Maze extends javax.swing.JFrame {
                     break;
            case 1 : btn2.doClick();
                     break;
-       }
+           case 2 : btn3.doClick();
+                    break;
+        }
      }
     }
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
@@ -143,6 +162,13 @@ public class Maze extends javax.swing.JFrame {
        
     }//GEN-LAST:event_formWindowActivated
 
+    private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null,"333");
+       Questionform();
+       arrbut[2]=true;
+    }//GEN-LAST:event_btn3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -181,6 +207,7 @@ public class Maze extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
     private javax.swing.JButton btn2;
+    private javax.swing.JButton btn3;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
