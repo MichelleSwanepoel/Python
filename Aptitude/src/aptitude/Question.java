@@ -51,6 +51,9 @@ public class Question extends javax.swing.JFrame {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
         });
 
         jLabel1.setText("jLabel1");
@@ -108,7 +111,8 @@ public class Question extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public void populate(String type, boolean isImage){
+   public Maze m= new Maze();
+    public void populate(String type, boolean isImage){
   //set certain components based on question type
   //Make use of image
   if(isImage){
@@ -149,16 +153,24 @@ private void setImage(){
         // TODO add your handling code here:
 //        check answer, update score
        this.setVisible(false);
+       m.count++;
+       m.nextQ(m.count);
     }//GEN-LAST:event_btnAnsActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         setLocationRelativeTo(null);
+       
 
 //            
 //       setExtendedState(JFrame.MAXIMIZED_BOTH); 
 //        setUndecorated(true);
     }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

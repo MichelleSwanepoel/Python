@@ -77,23 +77,8 @@ public class Maze extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//     int count;
-//     Timer  t=new Timer(1000,new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                count++;
-//            }
-//        }); 
-     
-//     private void TimerRun(){
-//      count = 0;
-//      t.start();
-//      while(count <3){
-//         if (count==3){
-//            t.stop();
-//          }
-//      }
-//     }
+    int count =0;
+    boolean[] arrbut = {false,false};
     private void Questionform(){
         Question q = new Question();
         //make certain components visible depending on question
@@ -108,20 +93,29 @@ public class Maze extends javax.swing.JFrame {
     g.dispose();
     return rs;
     }
-    public boolean QForm=false;// so that next button wont be triggered before question is answered
+    public void nextQ(int Cnt){
+     if (arrbut[Cnt]==false){
+       switch(Cnt){
+           case 0 : btn1.doClick();
+                    break;
+           case 1 : btn2.doClick();
+                    break;
+       }
+     }
+    }
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        // TODO add your handling code here:
         JOptionPane.showMessageDialog(null,"YAY"); 
-//        TimerThread s = new TimerThread();
-//        s.start();
-        Questionform();
-        btn2.doClick();
-      //  s.interrupt();
+      Questionform();
+      arrbut[0]= true;
+      
+    
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null,"fdsfbgfs");
+      JOptionPane.showMessageDialog(null,"fdsfbgfs");
+       Questionform();
+       arrbut[1]=true;
     }//GEN-LAST:event_btn2ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
