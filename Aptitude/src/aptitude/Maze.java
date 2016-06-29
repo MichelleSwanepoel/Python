@@ -71,10 +71,8 @@ public class Maze extends javax.swing.JFrame {
         });
         getContentPane().add(btn2);
         btn2.setBounds(111, 150, 73, 23);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Robert\\Pictures\\Sample Pictures\\Tulips.jpg")); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(-380, -120, 1320, 610);
+        jLabel1.setBounds(0, 0, 630, 330);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -127,13 +125,16 @@ public class Maze extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
-        jLabel1.setSize(this.getSize());
+     setExtendedState(JFrame.MAXIMIZED_BOTH);
+      Toolkit t = Toolkit.getDefaultToolkit();
+      Dimension d = t.getScreenSize();
+      int ScreenWidth = d.width;
+      int ScreenHeight = d.height;
+      jLabel1.setSize(ScreenWidth,ScreenHeight);
         
         URL url;
          try { 
-            url = new URL("http://www.digitalphotoartistry.com/rose1.jpg");
+            url = new URL("C:\\Users\\Robert\\Pictures\\Sample Pictures\\Tulips.jpg");
             Image image = ImageIO.read(url);
             ImageIcon icon = new ImageIcon(resizepic(image, jLabel1.getWidth(),jLabel1.getHeight()));
            jLabel1.setIcon(icon);
