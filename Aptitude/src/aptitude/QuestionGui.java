@@ -21,12 +21,12 @@ import javax.swing.JFrame;
  *
  * @author Robert
  */
-public class Question extends javax.swing.JFrame {
+public class QuestionGui extends javax.swing.JFrame {
 
     /**
      * Creates new form Question
      */
-    public Question() {
+    public QuestionGui() {
         initComponents();
     }
 
@@ -135,7 +135,7 @@ private void setImage(){
 //            ImageIcon icon = new ImageIcon(resizepic(image, jLabel1.getWidth(),jLabel1.getHeight()));
 //             jLabel1.setIcon(icon);
 //        } catch (IOException ex) {
-//            Logger.getLogger(Question.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(QuestionGui.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 // if no image used try { 
 //            url = new URL(""https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png");
@@ -145,7 +145,7 @@ private void setImage(){
 //           jLabel1.setIcon(icon);
 //          
 //        } catch (IOException ex) {
-//            Logger.getLogger(Question.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(QuestionGui.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 }
 
@@ -192,20 +192,21 @@ private void setImage(){
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Question.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuestionGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Question.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuestionGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Question.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuestionGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Question.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuestionGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Question().setVisible(true);
+                new QuestionGui().setVisible(true);
             }
         });
     }
