@@ -122,9 +122,9 @@ public class DBQueries
         if (question.getAnswer().equals(answer))
         {
             try
-            {
-                db.update("Query that inserts into the UserQuest table, where the UserID is the global variable UserId and the questionID is"
-                        + "equal to question.getID()");
+            {                
+                db.update("INSERT INTO UserQuest VALUES(userId,(SELECT QID FROM Question WHERE Answer IN('the eyes')));"/*Query that inserts into the UserQuest table, where the UserID is the global variable UserId and the questionID is"
+                        + "equal to question.getID()"*/);
                 return true;
             }
             catch (SQLException ex)
@@ -145,15 +145,11 @@ public class DBQueries
     {
         int score = 0;
         try
-        {
-            //The result should be a list of 
-            ResultSet result = db.query("String that queries all the questions that are linked with the current user, in other words, all the questions that the user answered correctly so far");
-
+        {            
+            ResultSet result = db.query("SELECT 'Level'.Score FROM 'Level', Question, UserQuest WHERE UserQuest.UserID="+userId+" AND Question.QID=UserQuest.QuestID AND Question.LevelID='Level'.LevelID");
             while (result.next())
             {
-                ResultSet questionLevel = db.query("String that queries the score of the current question from the Level table");
-
-                score += questionLevel.getObject("Score", Integer.class);
+                score += result.getInt("Score");
             }
         }
         catch (SQLException ex)
