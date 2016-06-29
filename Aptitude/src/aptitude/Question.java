@@ -153,15 +153,17 @@ private void setImage(){
         // TODO add your handling code here:
 //        check answer, update score
        this.setVisible(false);
-       int count =m.getNum();
-       m.nextQ(count);
-       m.arrbut[count]=true;
+       m.qcount++;
+       m.nextQ(m.qcount);
+//       int count =m.getNum();
+//       m.nextQ(count);
+//       m.arrbut[count]=true;
     }//GEN-LAST:event_btnAnsActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         setLocationRelativeTo(null);
-       m.arrbut[0]=true;
+      // m.arrbut[0]=true;
 
 //            
 //       setExtendedState(JFrame.MAXIMIZED_BOTH); 

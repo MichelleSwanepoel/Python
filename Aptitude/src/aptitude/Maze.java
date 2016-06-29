@@ -87,15 +87,15 @@ public class Maze extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    boolean[] arrbut = {false,false,false};
-    public int getNum(){
-       int counter =0;
-       while (arrbut[counter]==true){
-           counter++;
-       }
-      return counter; 
-     }
+    public static int qcount =1;
+//    boolean[] arrbut = {false,false,false};
+//    public int getNum(){
+//       int counter =0;
+//       while (arrbut[counter]==true){
+//           counter++;
+//       }
+//      return counter; 
+//     }
     private void Questionform(){
         Question q = new Question();
         //make certain components visible depending on question
@@ -111,22 +111,20 @@ public class Maze extends javax.swing.JFrame {
     return rs;
     }
     public void nextQ(int Cnt){
-     if (arrbut[Cnt]==false){
+     
        switch(Cnt){
-           case 0 : btn1.doClick();
+           case 1 : btn1.doClick();
                     break;
-           case 1 : btn2.doClick();
+           case 2 : btn2.doClick();
                     break;
-           case 2 : btn3.doClick();
+           case 3 : btn3.doClick();
                     break;
         }
-     }
+     
     }
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
         JOptionPane.showMessageDialog(null,"YAY"); 
-      Questionform();
-      arrbut[0]= true;
-      
+      Questionform();    
     
     }//GEN-LAST:event_btn1ActionPerformed
 
@@ -134,7 +132,7 @@ public class Maze extends javax.swing.JFrame {
         // TODO add your handling code here:
       JOptionPane.showMessageDialog(null,"fdsfbgfs");
        Questionform();
-       arrbut[1]=true;
+       
     }//GEN-LAST:event_btn2ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -166,7 +164,7 @@ public class Maze extends javax.swing.JFrame {
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null,"333");
        Questionform();
-       arrbut[2]=true;
+       
     }//GEN-LAST:event_btn3ActionPerformed
 
     /**
