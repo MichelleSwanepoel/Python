@@ -9,6 +9,13 @@ package aptitude;
  *
  * @author Robert
  */
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+//import java.util.Timer;
+//import java.util.TimerTask;
+//import java.util.*;
+
 public class Maze extends javax.swing.JFrame {
 
     /**
@@ -17,7 +24,7 @@ public class Maze extends javax.swing.JFrame {
     public Maze() {
         initComponents();
     }
-
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,34 +34,83 @@ public class Maze extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        btn1 = new javax.swing.JButton();
+        btn2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Maze");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        btn1.setText("jButton1");
+        btn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn1ActionPerformed(evt);
+            }
+        });
+
+        btn2.setText("jButton2");
+        btn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addComponent(btn1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addComponent(btn2)))
+                .addContainerGap(216, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addGap(109, 109, 109)
+                .addComponent(btn1)
+                .addGap(18, 18, 18)
+                .addComponent(btn2)
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+//     int count;
+//     Timer  t=new Timer(1000,new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                count++;
+//            }
+//        }); 
+     
+//     private void TimerRun(){
+//      count = 0;
+//      t.start();
+//      while(count <3){
+//         if (count==3){
+//            t.stop();
+//          }
+//      }
+//     }
+    
+    private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null,"YAY"); 
+        TimerThread s = new TimerThread();
+        s.start();
+        btn2.doClick();
+        s.interrupt();
+    }//GEN-LAST:event_btn1ActionPerformed
+
+    private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null,"fdsfbgfs");
+    }//GEN-LAST:event_btn2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -92,7 +148,7 @@ public class Maze extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton btn1;
+    private javax.swing.JButton btn2;
     // End of variables declaration//GEN-END:variables
 }
