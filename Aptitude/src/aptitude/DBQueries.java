@@ -122,8 +122,8 @@ public class DBQueries
         {
             try
             {
-                db.update("Query that inserts into the UserQuest table, where the UserID is the global variable UserId and the questionID is"
-                        + "equal to question.getID()");
+                db.update("INSERT INTO UserQuest VALUES(userId,(SELECT QID FROM Question WHERE Answer IN('the eyes')));"/*Query that inserts into the UserQuest table, where the UserID is the global variable UserId and the questionID is"
+                        + "equal to question.getID()"*/);
                 return true;
             }
             catch (SQLException ex)
