@@ -137,7 +137,8 @@ public class SlickMaze extends BasicGame
                     pressedDown = false;
                     currentCheckpoint = "2";
                     
-                    new QuestionGui().setVisible(true);
+                    StartPage.showPopup(currentCheckpoint);
+                    
                 }
         }
         if (currentCheckpoint.equals("2"))
@@ -155,6 +156,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedRight = false;
                         currentCheckpoint = "3B";
+                        StartPage.showPopup(currentCheckpoint);
                     }
                 }
                 else if (pressedDown)
@@ -171,6 +173,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedDown = false;
                         currentCheckpoint = "3A";
+                        StartPage.showPopup(currentCheckpoint);
                     }
                 }
         }
@@ -189,6 +192,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedRight = false;
                         currentCheckpoint = "4B";
+                        StartPage.showPopup(currentCheckpoint);
                     }
                 }
                 else if (pressedDown)
@@ -205,6 +209,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedDown = false;
                         currentCheckpoint = "4A";
+                        StartPage.showPopup(currentCheckpoint);
                     }
                 }
         }
@@ -224,6 +229,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedDown = false;
                         currentCheckpoint = "4B";
+                        StartPage.showPopup(currentCheckpoint);
                     }
                 }
                 else if (pressedUp)
@@ -247,6 +253,7 @@ public class SlickMaze extends BasicGame
                         {
                             pressedUp = false;
                             currentCheckpoint = "4C";
+                            StartPage.showPopup(currentCheckpoint);
                         }
                     }
                     
@@ -275,6 +282,7 @@ public class SlickMaze extends BasicGame
                         {
                             pressedRight = false;
                             currentCheckpoint = "5A";
+                            StartPage.showPopup(currentCheckpoint);
                         }
                     }
                 }
@@ -293,6 +301,8 @@ public class SlickMaze extends BasicGame
             {
                 pressedDown = false;
                 currentCheckpoint = "5A";
+                StartPage.showPopup(currentCheckpoint);
+                
             }
         }
         if (currentCheckpoint.equals("4C"))
@@ -310,6 +320,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedRight = false;
                         currentCheckpoint = "5C";
+                        StartPage.showPopup(currentCheckpoint);
                     }
                 }
                 else if (pressedDown)
@@ -326,6 +337,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedDown = false;
                         currentCheckpoint = "5B";
+                        StartPage.showPopup(currentCheckpoint);
                     }
                 }
             
@@ -345,6 +357,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedRight = false;
                         currentCheckpoint = "6A";
+                        StartPage.showPopup(currentCheckpoint);
                     }
                 }
         }
@@ -371,6 +384,7 @@ public class SlickMaze extends BasicGame
                         {
                             pressedDown = false;
                             currentCheckpoint = "6B";
+                            StartPage.showPopup(currentCheckpoint);
                         }
                     }
                 }
@@ -398,6 +412,7 @@ public class SlickMaze extends BasicGame
                         {
                             pressedDown = false;
                             currentCheckpoint = "6B";
+                            StartPage.showPopup(currentCheckpoint);
                         }
                     }
                 }
@@ -417,6 +432,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedRight = false;
                         currentCheckpoint = "7";
+                        StartPage.showPopup(currentCheckpoint);
                     }
                 }
         }
@@ -443,6 +459,7 @@ public class SlickMaze extends BasicGame
                         {
                             pressedDown = false;
                             currentCheckpoint = "7";
+                            StartPage.showPopup(currentCheckpoint);
                         }
                     }
                 }
@@ -461,7 +478,12 @@ public class SlickMaze extends BasicGame
             {
                 pressedDown = false;
                 currentCheckpoint = "8";
+                StartPage.showPopup(currentCheckpoint);
             }
+        }
+        if (currentCheckpoint.equals("8"))
+        {
+            StartPage.showPopup(currentCheckpoint);
         }
         
     }

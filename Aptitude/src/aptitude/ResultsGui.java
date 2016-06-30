@@ -18,17 +18,20 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+
 /**
  *
  * @author Robert
  */
 public class ResultsGui extends javax.swing.JFrame {
 
+    DBQueries database;
     /**
      * Creates new form ResultsGui
      */
-    public ResultsGui() {
+    public ResultsGui(DBQueries _db) {
         initComponents();
+        database = _db;
     }
 
     /**
@@ -138,9 +141,9 @@ public class ResultsGui extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
     private void PlotGraph(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(StartPage.userdb.getNum("EASY"),"Number","Easy");
-        dataset.setValue(StartPage.userdb.getNum("MEDIUM"),"Number","Medium");
-        dataset.setValue(StartPage.userdb.getNum("HARD"),"Number","Hard");
+        dataset.setValue(database.getNumberOfCorrectQuestions("EASY"),"Number","Easy");
+        dataset.setValue(database.getNumberOfCorrectQuestions("MEDIUM"),"Number","Medium");
+        dataset.setValue(database.getNumberOfCorrectQuestions("HARD"),"Number","Hard");
        JFreeChart chart= ChartFactory.createBarChart("Results","Difficulty","Number answered correctly", dataset,PlotOrientation.VERTICAL,false,true,false);
        CategoryPlot p= chart.getCategoryPlot();
        p.setRangeGridlinePaint(Color.BLACK);
@@ -151,7 +154,7 @@ public class ResultsGui extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         setLocationRelativeTo(null);
-        jLabel1.setText("Results for: "+StartPage.userdb.getName());
+        jLabel1.setText("Results for: "+StartPage.database.getName());
         txtAEx.setText("Results: "+"\n");
 //        txtAEx.append("EASY Questions: "+StartPage.userdb.getNum("EASY")+"\n");
 //        txtAEx.append("MEDIUM Questions: "+StartPage.userdb.getScore("MEDIUM")+"\n");
@@ -165,7 +168,7 @@ public class ResultsGui extends javax.swing.JFrame {
         JFileChooser f = new JFileChooser();
         f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
         f.showSaveDialog(null);
-        String filename =  f.getCurrentDirectory()+ "\\Resultsfor"+StartPage.userdb.getName()+".txt";
+        String filename =  f.getCurrentDirectory()+ "\\Resultsfor"+database.getName()+".txt";
         try {
             PrintWriter out = new PrintWriter(filename);
             out.println(txtAEx.getText());
@@ -205,7 +208,7 @@ public class ResultsGui extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ResultsGui().setVisible(true);
+               // new ResultsGui().setVisible(true);
             }
         });
     }

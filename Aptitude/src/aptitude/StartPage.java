@@ -16,6 +16,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 public class StartPage extends javax.swing.JFrame {
 static AppGameContainer app;
+//static QuestionGui myQuestion ;
     /**
      * Creates new form StartPage
      */
@@ -100,12 +101,12 @@ static AppGameContainer app;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   public static DB Udb = new DB();
-    public static DBQueries userdb = new DBQueries();
+   //public static DB Udb = new DB();
+   public static DBQueries database = new DBQueries();
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         // TODO add your handling code here:
         String name = JOptionPane.showInputDialog("Please enter your name");
-        userdb.addUser(name);
+        database.addUser(name);
         jTextArea1.setVisible(false);
         jTextArea1.setVisible(false);
         jLabel1.setVisible(true);
@@ -115,19 +116,51 @@ static AppGameContainer app;
         
     }//GEN-LAST:event_btnStartActionPerformed
 
+    public static void showPopup(String checkPoint)
+    {
+        QuestionManager manager = new QuestionManager(database);
+        //myQuestion.setVisible(true);
+        int qID = Integer.parseInt(checkPoint.substring(0,1));
+        switch (qID)
+        {
+            case 1:
+            case 2:
+                manager.loadQuestion(QuestionManager.difficulty.EASY);
+                break;
+            case 3:
+            case 4:
+            case 5:
+                manager.loadQuestion(QuestionManager.difficulty.MEDIUM);
+                break;
+            case 6:
+            case 7:
+            case 8:
+                manager.loadQuestion(QuestionManager.difficulty.HARD);
+                break;
+        }
+        String answer = JOptionPane.showInputDialog(null,manager.myquestion.getQuestion());
+        manager.saveAnswer(answer);
+
+        
+        
+        
+    }
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
         // TODO add your handling code here:
         String Ans=txtStart.getText();
-        QuestionGui myQuestion = new QuestionGui();
+        //myQuestion =  new QuestionGui(database);
+      
         if(Ans.toLowerCase().equals("start"))
         {
           //JOptionPane.showMessageDialog(null,"Get Ready");
           //close();
-          this.dispose();
+          //this.dispose();
+           this.setVisible(false);
           //new QuestionGui().setVisible(true);
           try
             {
-                AppGameContainer app = new AppGameContainer(new SlickMaze("1"));
+                
+                app = new AppGameContainer(new SlickMaze("1"));
                 app.setDisplayMode(630, 630, false);
                 app.start();
                 
