@@ -6,17 +6,17 @@ import java.util.ArrayList;
 
 public class DBQueries
 {
-
+    
     DB db;
     ArrayList<Question> questions = new ArrayList();
     int userId;
-
+    
     DBQueries()
     {
         db = new DB();
         questions.addAll(getQuestions("EASY"));
-        //questions.addAll(getQuestions("MEDIUM"));
-//        questions.addAll(getQuestions("HARD"));
+        questions.addAll(getQuestions("MEDIUM"));
+        questions.addAll(getQuestions("HARD"));
     }
 
     /**
@@ -31,16 +31,16 @@ public class DBQueries
     public Boolean addUser(String name)
     {
         try
-        { 
-            ResultSet result = db.query("SELECT * FROM 'User' WHERE 'Name' IN ('"+name+"')");
+        {            
+            ResultSet result = db.query("SELECT * FROM 'User' WHERE 'Name' IN ('" + name + "')");
             if (!result.next())
             {
                 userId = db.getNextUserID();
-                db.update("INSERT INTO User VALUES('"+db.getNextUserID()+"','"+name+"')");
+                db.update("INSERT INTO User VALUES('" + db.getNextUserID() + "','" + name + "')");
                 return true;
             }
             return false;
-
+            
         }
         catch (SQLException exc)
         {
@@ -85,7 +85,7 @@ public class DBQueries
         try
         {
             ResultSet result = db.query("SELECT * FROM Question WHERE LevelID IN ('" + difficulty + "')");
-
+            
             while (result.next())
             {
                 ResultSet levelResult = db.query("SELECT SCORE FROM Level WHERE LevelID IN ('" + difficulty + "')"/*"Query that selects obtains the score of the question by using the LevelID"*/);
@@ -98,7 +98,7 @@ public class DBQueries
                 question.setQuestID(result.getInt("QID"));
                 resultArray.add(question);
             }
-
+            
             return resultArray;
         }
         catch (SQLException ex)
@@ -123,8 +123,8 @@ public class DBQueries
         {
             try
             {                
-                db.update("INSERT INTO UserQuest VALUES('"+userId+"', '"+question.getQuestID()+"');"/*Query that inserts into the UserQuest table, where the UserID is the global variable UserId and the questionID is"
-                        + "equal to question.getID()"*/);
+                db.update("INSERT INTO UserQuest VALUES('" + userId + "', '" + question.getQuestID() + "');"/*Query that inserts into the UserQuest table, where the UserID is the global variable UserId and the questionID is"
+                 + "equal to question.getID()"*/);
                 return true;
             }
             catch (SQLException ex)
@@ -132,7 +132,7 @@ public class DBQueries
                 return false;
             }
         }
-
+        
         return false;
     }
 
@@ -146,7 +146,7 @@ public class DBQueries
         int score = 0;
         try
         {            
-            ResultSet result = db.query("SELECT 'Level'.Score FROM 'Level', Question, UserQuest WHERE UserQuest.UserID="+userId+" AND Question.QID=UserQuest.QuestID AND Question.LevelID='Level'.LevelID");
+            ResultSet result = db.query("SELECT 'Level'.Score FROM 'Level', Question, UserQuest WHERE UserQuest.UserID=" + userId + " AND Question.QID=UserQuest.QuestID AND Question.LevelID='Level'.LevelID");
             while (result.next())
             {
                 score += result.getInt("Score");
@@ -156,8 +156,30 @@ public class DBQueries
         {
             return -1;
         }
-
+        
         return score;
     }
-
+    
+    public int getNumberOfCorrectQuestions(String difficulty)
+    {
+        int questNum = 0;
+        
+        try
+        {            
+            ResultSet result = db.query("SELECT 'Level'.LevelID FROM 'Level', Question, UserQuest WHERE UserQuest.UserID=" + userId + " AND Question.QID=UserQuest.QuestID AND Question.LevelID='Level'.LevelID");
+            while (result.next())
+            {
+                if(result.getString("LevelID").equals(difficulty))
+                questNum++;
+            }
+        }
+        catch (SQLException ex)
+        {
+            return -1;
+        }
+        
+        return questNum;
+        
+    }
+    
 }
