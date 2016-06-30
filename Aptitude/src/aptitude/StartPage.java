@@ -118,12 +118,14 @@ static AppGameContainer app;
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
         // TODO add your handling code here:
         String Ans=txtStart.getText();
+        QuestionGui myQuestion = new QuestionGui();
         if(Ans.toLowerCase().equals("start"))
         {
-          JOptionPane.showMessageDialog(null,"YAY");
+          //JOptionPane.showMessageDialog(null,"Get Ready");
           //close();
           this.dispose();
-          /*try
+          //new QuestionGui().setVisible(true);
+          try
             {
                 AppGameContainer app = new AppGameContainer(new SlickMaze("1"));
                 app.setDisplayMode(630, 630, false);
@@ -133,8 +135,8 @@ static AppGameContainer app;
             catch (SlickException e)
             {
              e.printStackTrace();
-            }*/
-          new QuestionGui().setVisible(true);
+            }
+          
          } 
      
     }//GEN-LAST:event_btnEnterActionPerformed
