@@ -157,6 +157,11 @@ public class Maze extends javax.swing.JFrame {
 //       }
 //      return counter; 
 //     }
+    private void Resultsform(){
+       ResultsGui r = new ResultsGui();
+       r.setVisible(true);
+       this.setVisible(false);
+    }
     private void Questionform(){
         QuestionGui q = new QuestionGui();
         //make certain components visible depending on question
