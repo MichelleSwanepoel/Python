@@ -5,12 +5,18 @@
  */
 package aptitude;
 
+import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -38,6 +44,8 @@ public class ResultsGui extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAEx = new javax.swing.JTextArea();
         btnSave = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Results");
@@ -65,6 +73,21 @@ public class ResultsGui extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 269, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 251, Short.MAX_VALUE)
+        );
+
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,26 +95,38 @@ public class ResultsGui extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(193, 193, 193)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(215, 215, 215)
-                        .addComponent(btnSave)))
-                .addContainerGap(188, Short.MAX_VALUE))
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(95, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(btnSave)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(208, 208, 208))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
-                .addComponent(btnSave)
-                .addGap(37, 37, 37))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(75, 75, 75)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSave)
+                    .addComponent(jButton1))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         pack();
@@ -101,15 +136,27 @@ public class ResultsGui extends javax.swing.JFrame {
         // TODO add your handling code here:      
         System.exit(0);
     }//GEN-LAST:event_formWindowClosed
-
+    private void PlotGraph(){
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.setValue(StartPage.userdb.getNum("EASY"),"Number","Easy");
+        dataset.setValue(StartPage.userdb.getNum("MEDIUM"),"Number","Medium");
+        dataset.setValue(StartPage.userdb.getNum("HARD"),"Number","Hard");
+       JFreeChart chart= ChartFactory.createBarChart("Results","Difficulty","Number answered correctly", dataset,PlotOrientation.VERTICAL,false,true,false);
+       CategoryPlot p= chart.getCategoryPlot();
+       p.setRangeGridlinePaint(Color.BLACK);
+       ChartFrame frame = new ChartFrame("Results of test",chart);
+       frame.setVisible(true);
+       frame.setSize(450,350);
+    }
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         setLocationRelativeTo(null);
         jLabel1.setText("Results for: "+StartPage.userdb.getName());
         txtAEx.setText("Results: "+"\n");
-//        txtAEx.append("EASY Questions: "+StartPage.userdb.getScore("EASY")+"\n");
+//        txtAEx.append("EASY Questions: "+StartPage.userdb.getNum("EASY")+"\n");
 //        txtAEx.append("MEDIUM Questions: "+StartPage.userdb.getScore("MEDIUM")+"\n");
 //        txtAEx.append("HARD Questions: "+StartPage.userdb.getScore("HARD")+"\n");
+        PlotGraph();
     }//GEN-LAST:event_formWindowActivated
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -118,14 +165,14 @@ public class ResultsGui extends javax.swing.JFrame {
         JFileChooser f = new JFileChooser();
         f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
         f.showSaveDialog(null);
-        String filename =  f.getCurrentDirectory()+ "Resultsfor"+StartPage.userdb.getName()+".txt";
-//        try {
-//            PrintWriter out = new PrintWriter(filename);
-//            out.println(txtAEx.getText());
-//            out.close();
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(ResultsGui.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        String filename =  f.getCurrentDirectory()+ "\\Resultsfor"+StartPage.userdb.getName()+".txt";
+        try {
+            PrintWriter out = new PrintWriter(filename);
+            out.println(txtAEx.getText());
+            out.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ResultsGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
@@ -165,7 +212,9 @@ public class ResultsGui extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtAEx;
     // End of variables declaration//GEN-END:variables
