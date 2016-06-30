@@ -224,7 +224,8 @@ private void setImage(){
         setLocationRelativeTo(null);
         jLabel3.setVisible(false);
         q=  StartPage.userdb.getNextQuestion("EASY");
-        txtAQ.setText("Question: "+m.qcount+"\n"+ q.getQuestion());
+        txtAQ.setText("Question: "+m.qcount+"\n");
+        txtAQ.append(q.getQuestion());
         setImage();
         txtAns.setText("");
       // m.arrbut[0]=true;
