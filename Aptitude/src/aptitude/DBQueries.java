@@ -10,6 +10,7 @@ public class DBQueries
     DB db;
     ArrayList<Question> questions = new ArrayList();
     int userId;
+    public static String Name;
 
     DBQueries()
     {
@@ -37,6 +38,7 @@ public class DBQueries
             {
                 userId = db.getNextUserID();
                 db.update("INSERT INTO User VALUES('"+db.getNextUserID()+"','"+name+"')");
+                Name = name;
                 return true;
             }
             return false;
@@ -47,6 +49,10 @@ public class DBQueries
             System.out.println(exc.getMessage());
             return false;
         }
+    }
+    
+    public String getName(){
+        return Name;
     }
 
     /**

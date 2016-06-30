@@ -88,6 +88,7 @@ public class Maze extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     public static int qcount =1;
+    public String level;
 //    boolean[] arrbut = {false,false,false};
 //    public int getNum(){
 //       int counter =0;

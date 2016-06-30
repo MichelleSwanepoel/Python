@@ -9,6 +9,12 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -50,8 +56,6 @@ public class QuestionGui extends javax.swing.JFrame {
                 formWindowClosed(evt);
             }
         });
-
-        jLabel1.setText("jLabel1");
 
         btnAns.setText("Answer");
         btnAns.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +125,7 @@ public class QuestionGui extends javax.swing.JFrame {
    public Maze m= new Maze();
    public Question q = new Question();
    public String actAns,Ans;
+   public URL url;
     public void populate(String type, boolean isImage){
   //set certain components based on question type
   //Make use of image
@@ -138,7 +143,18 @@ private Image resizepic(Image pic,int w,int h){
 }
 
 private void setImage(){
-    //           Image image;
+           Image image;
+           if (q.getBlob()==null){
+                   try { 
+                     url = new URL("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png");
+                    image = ImageIO.read(url);
+                   ImageIcon icon = new ImageIcon(resizepic(image, jLabel1.getWidth(),jLabel1.getHeight()));
+                 jLabel1.setIcon(icon);
+         
+                } catch (IOException ex) {
+              Logger.getLogger(QuestionGui.class.getName()).log(Level.SEVERE, null, ex);
+           }
+                   }
 //       if image used try {
 //            image = ImageIO.read(new File("C:\\Users\\Robert\\Pictures\\pictures\\floral.png"));
 //            ImageIcon icon = new ImageIcon(resizepic(image, jLabel1.getWidth(),jLabel1.getHeight()));
@@ -146,16 +162,7 @@ private void setImage(){
 //        } catch (IOException ex) {
 //            Logger.getLogger(QuestionGui.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-// if no image used try { 
-//            url = new URL(""https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png");
-//            Image image = ImageIO.read(url);
-//               Image image = ImageIO.read(new File("C:\\Users\\Robert\\Pictures\\pictures\\floral.png"));
-//            ImageIcon icon = new ImageIcon(resizepic(image, jLabel1.getWidth(),jLabel1.getHeight()));
-//           jLabel1.setIcon(icon);
-//          
-//        } catch (IOException ex) {
-//            Logger.getLogger(QuestionGui.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+// 
 }
     private void proceed(){
        boolean random = StartPage.userdb.addQuestionToListOfCorrectQuestions(q, Ans);
@@ -206,10 +213,10 @@ private void setImage(){
         // TODO add your handling code here:
         setLocationRelativeTo(null);
         jLabel3.setVisible(false);
-     q=  StartPage.userdb.getNextQuestion("EASY");
-    txtAQ.setText(q.getQuestion());
-    
-    txtAns.setText("");
+        q=  StartPage.userdb.getNextQuestion("EASY");
+        txtAQ.setText(q.getQuestion());
+        setImage();
+        txtAns.setText("");
       // m.arrbut[0]=true;
 
 //            
