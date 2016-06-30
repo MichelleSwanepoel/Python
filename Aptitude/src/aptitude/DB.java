@@ -239,7 +239,7 @@ public class DB
                         + "3. A three is directly above the six.\n"
                         + "4. One red card is directly on top of the other.\n"
                         + "5. A black card is on the very top.\n"
-                        + "6. The bottom card has the value of the sum of three other face down cards','2','736Q3K',NULL)";
+                        + "6. The bottom card has the value of the sum of three other face down cards','736Q3K','HARD',NULL)";
                 this.update(insert);
             }
 

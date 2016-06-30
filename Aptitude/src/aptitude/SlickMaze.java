@@ -88,6 +88,7 @@ public class SlickMaze extends BasicGame
     boolean pressedRight = false;
     boolean pressedLeft = false;
     boolean pressedUp = false;
+    boolean first = true;
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
@@ -124,6 +125,12 @@ public class SlickMaze extends BasicGame
         
         if (currentCheckpoint.equals("1"))
         {
+            
+                if (first)
+                {
+                    StartPage.showPopup(currentCheckpoint);
+                    first = false;
+                }
                 destinationCheckpoint = "2";
                 String coords[] = this.getCoordinates(currentCheckpoint, destinationCheckpoint).split(",");
                 int yEnd = Integer.parseInt(coords[2].split(";")[1]);                
