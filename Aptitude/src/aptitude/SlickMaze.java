@@ -77,9 +77,9 @@ public class SlickMaze extends BasicGame
     @Override
     public void init(GameContainer container) throws SlickException
     {
-            grassMap = new TiledMap("G:\\Temp\\build\\classes\\map70.tmx");
-            Image [] still = {new Image("G:\\Temp\\build\\classes\\Idle.png")};
-            Image [] move = {new Image("G:\\Temp\\build\\classes\\Climb2.png"),new Image("G:\\Temp\\build\\classes\\Climb3.png"),new Image("G:\\Temp\\build\\classes\\Climb4.png"),new Image("G:\\Temp\\build\\classes\\Climb5.png"),new Image("G:\\Temp\\build\\classes\\Climb6.png"),new Image("G:\\Temp\\build\\classes\\Climb7.png")};
+            grassMap = new TiledMap("src\\resources\\map70.tmx");
+            //Image [] still = {new Image("src\\resources\\Idle.png")};
+            Image [] move = {new Image("src\\resources\\Climb2.png"),new Image("src\\resources\\Climb3.png"),new Image("src\\resources\\Climb4.png"),new Image("src\\resources\\Climb5.png"),new Image("src\\resources\\Climb6.png"),new Image("src\\resources\\Climb7.png")};
             int [] duration = {150,150,150,150,150,150};
             sprite = new Animation (move, duration, false);
     }
