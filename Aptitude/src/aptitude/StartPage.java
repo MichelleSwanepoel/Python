@@ -12,8 +12,10 @@ package aptitude;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.SlickException;
 public class StartPage extends javax.swing.JFrame {
-
+static AppGameContainer app;
     /**
      * Creates new form StartPage
      */
@@ -93,10 +95,8 @@ public class StartPage extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(37, 11, 350, 140);
-
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Robert\\Desktop\\brain-background-16576876.jpg")); // NOI18N
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(0, 0, 469, 290);
+        jLabel2.setBounds(0, 0, 0, 290);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -122,14 +122,21 @@ public class StartPage extends javax.swing.JFrame {
         {
           JOptionPane.showMessageDialog(null,"YAY");
           //close();
-          this.setVisible(false);
-          Maze m = new Maze();
-          m.setVisible(true);
+          this.dispose();
+          /*try
+            {
+                AppGameContainer app = new AppGameContainer(new SlickMaze("1"));
+                app.setDisplayMode(630, 630, false);
+                app.start();
+                
+            }
+            catch (SlickException e)
+            {
+             e.printStackTrace();
+            }*/
+          new QuestionGui().setVisible(true);
          } 
-        else
-        {
-             JOptionPane.showMessageDialog(null,"Try Again");
-        }
+     
     }//GEN-LAST:event_btnEnterActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
