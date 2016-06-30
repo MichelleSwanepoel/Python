@@ -8,6 +8,7 @@ package aptitude;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -16,6 +17,9 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import java.io.*;
+import java.net.*;
+import sun.security.x509.X500Name;
 
 /**
  *
@@ -141,7 +145,9 @@ private Image resizepic(Image pic,int w,int h){
     g.dispose();
     return rs;
 }
-
+private Image BufferedImtoIm(BufferedImage Bimage){
+    return Toolkit.getDefaultToolkit().createImage(Bimage.getSource());
+}
 private void setImage(){
            Image image;
            if (q.getBlob()==null){
@@ -154,22 +160,27 @@ private void setImage(){
                 } catch (IOException ex) {
               Logger.getLogger(QuestionGui.class.getName()).log(Level.SEVERE, null, ex);
            }
-                   }
-//       if image used try {
-//            image = ImageIO.read(new File("C:\\Users\\Robert\\Pictures\\pictures\\floral.png"));
-//            ImageIcon icon = new ImageIcon(resizepic(image, jLabel1.getWidth(),jLabel1.getHeight()));
-//             jLabel1.setIcon(icon);
-//        } catch (IOException ex) {
-//            Logger.getLogger(QuestionGui.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-// 
+         } else{
+               InputStream in = new ByteArrayInputStream(q.getBlob());
+               try {
+                   BufferedImage bi = ImageIO.read(in);
+                   image = BufferedImtoIm(bi);
+                   ImageIcon icon = new ImageIcon(resizepic(image, jLabel1.getWidth(),jLabel1.getHeight()));
+                   jLabel1.setIcon(icon);
+
+               } catch (IOException ex) {
+                   Logger.getLogger(QuestionGui.class.getName()).log(Level.SEVERE, null, ex);
+               }
+           }
+
 }
     private void proceed(){
        boolean random = StartPage.userdb.addQuestionToListOfCorrectQuestions(q, Ans);
        
        this.setVisible(false);
        m.qcount++;
-       m.nextQ(m.qcount);  
+       m.nextQ(m.qcount);
+       
     }
     private boolean IsNumber(String s){
 
@@ -204,9 +215,8 @@ private void setImage(){
          jLabel3.setVisible(true);
         }
     }
-//       int count =m.getNum();
-//       m.nextQ(count);
-//       m.arrbut[count]=true;
+
+       
     }//GEN-LAST:event_btnAnsActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -214,7 +224,7 @@ private void setImage(){
         setLocationRelativeTo(null);
         jLabel3.setVisible(false);
         q=  StartPage.userdb.getNextQuestion("EASY");
-        txtAQ.setText(q.getQuestion());
+        txtAQ.setText("Question: "+m.qcount+"\n"+ q.getQuestion());
         setImage();
         txtAns.setText("");
       // m.arrbut[0]=true;
