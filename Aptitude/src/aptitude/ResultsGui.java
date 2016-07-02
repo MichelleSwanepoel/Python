@@ -89,7 +89,12 @@ public class ResultsGui extends javax.swing.JFrame {
             .addGap(0, 251, Short.MAX_VALUE)
         );
 
-        jButton1.setText("jButton1");
+        jButton1.setText("View Graph");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,22 +149,23 @@ public class ResultsGui extends javax.swing.JFrame {
         dataset.setValue(database.getNumberOfCorrectQuestions("EASY"),"Number","Easy");
         dataset.setValue(database.getNumberOfCorrectQuestions("MEDIUM"),"Number","Medium");
         dataset.setValue(database.getNumberOfCorrectQuestions("HARD"),"Number","Hard");
-       JFreeChart chart= ChartFactory.createBarChart("Results","Difficulty","Number answered correctly", dataset,PlotOrientation.VERTICAL,false,true,false);
-       CategoryPlot p= chart.getCategoryPlot();
-       p.setRangeGridlinePaint(Color.BLACK);
-       ChartFrame frame = new ChartFrame("Results of test",chart);
-       frame.setVisible(true);
-       frame.setSize(450,350);
+        JFreeChart chart= ChartFactory.createBarChart("Results","Difficulty","Number answered correctly", dataset,PlotOrientation.VERTICAL,false,true,false);
+        CategoryPlot p= chart.getCategoryPlot();
+        p.setRangeGridlinePaint(Color.BLACK);
+        ChartFrame frame = new ChartFrame("Results of test",chart);
+        frame.setVisible(true);
+         frame.setSize(450,350);
+         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         setLocationRelativeTo(null);
-        jLabel1.setText("Results for: "+StartPage.database.getName());
+        jLabel1.setText("Results for: "+database.getName());
         txtAEx.setText("Results: "+"\n");
 //        txtAEx.append("EASY Questions: "+StartPage.userdb.getNum("EASY")+"\n");
 //        txtAEx.append("MEDIUM Questions: "+StartPage.userdb.getScore("MEDIUM")+"\n");
 //        txtAEx.append("HARD Questions: "+StartPage.userdb.getScore("HARD")+"\n");
-        PlotGraph();
+        
     }//GEN-LAST:event_formWindowActivated
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -169,7 +175,8 @@ public class ResultsGui extends javax.swing.JFrame {
         f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
         f.showSaveDialog(null);
         String filename =  f.getCurrentDirectory()+ "\\Resultsfor"+database.getName()+".txt";
-        try {
+        try 
+        {
             PrintWriter out = new PrintWriter(filename);
             out.println(txtAEx.getText());
             out.close();
@@ -177,6 +184,10 @@ public class ResultsGui extends javax.swing.JFrame {
             Logger.getLogger(ResultsGui.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        PlotGraph();// TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

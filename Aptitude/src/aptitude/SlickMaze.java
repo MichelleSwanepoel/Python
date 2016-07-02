@@ -53,27 +53,12 @@ public class SlickMaze extends BasicGame
     {
         super("Maze");
         currentCheckpoint = currentCheck;
-        System.out.println(findXPos(currentCheckpoint));
         x = xCord[findXPos(currentCheckpoint)];
         y = yCord[findYPos(currentCheckpoint)];
         destinationCheckpoint = "";
         exit_flag = false;
     }
- /*
-    public static void main(String[] arguments)
-    {
-        try
-        {
-            AppGameContainer app = new AppGameContainer(new PractieMaze("1"));
-            app.setDisplayMode(630, 630, false);
-            app.start();
-        }
-        catch (SlickException e)
-        {
-            e.printStackTrace();
-        }
-    }
- */
+ 
     @Override
     public void init(GameContainer container) throws SlickException
     {
@@ -128,7 +113,7 @@ public class SlickMaze extends BasicGame
             
                 if (first)
                 {
-                    StartPage.showPopup(currentCheckpoint);
+                    MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));
                     first = false;
                 }
                 destinationCheckpoint = "2";
@@ -144,8 +129,7 @@ public class SlickMaze extends BasicGame
                     pressedDown = false;
                     currentCheckpoint = "2";
                     
-                    StartPage.showPopup(currentCheckpoint);
-                    
+                    MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                    
                 }
         }
         if (currentCheckpoint.equals("2"))
@@ -163,7 +147,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedRight = false;
                         currentCheckpoint = "3B";
-                        StartPage.showPopup(currentCheckpoint);
+                        MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));               
                     }
                 }
                 else if (pressedDown)
@@ -180,7 +164,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedDown = false;
                         currentCheckpoint = "3A";
-                        StartPage.showPopup(currentCheckpoint);
+                        MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                   
                     }
                 }
         }
@@ -190,7 +174,6 @@ public class SlickMaze extends BasicGame
                 {    
                     destinationCheckpoint = "4B";
                     String coords[] = this.getCoordinates(currentCheckpoint, destinationCheckpoint).split(",");
-                    System.out.println(this.getCoordinates(currentCheckpoint, destinationCheckpoint));
                     int xEnd = Integer.parseInt(coords[2].split(";")[0]);                
                     sprite.update(delta);
                     x+= delta *0.1f;
@@ -199,7 +182,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedRight = false;
                         currentCheckpoint = "4B";
-                        StartPage.showPopup(currentCheckpoint);
+                        MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                    
                     }
                 }
                 else if (pressedDown)
@@ -216,7 +199,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedDown = false;
                         currentCheckpoint = "4A";
-                        StartPage.showPopup(currentCheckpoint);
+                        MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                 
                     }
                 }
         }
@@ -236,14 +219,13 @@ public class SlickMaze extends BasicGame
                     {
                         pressedDown = false;
                         currentCheckpoint = "4B";
-                        StartPage.showPopup(currentCheckpoint);
+                        MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                    
                     }
                 }
                 else if (pressedUp)
                 {
                     destinationCheckpoint = "4C";
                     String coords[] = this.getCoordinates(currentCheckpoint, destinationCheckpoint).split(",");
-                    System.out.println(this.getCoordinates(currentCheckpoint, destinationCheckpoint));
                     int yEnd = Integer.parseInt(coords[1].split(";")[1]);                
                     if(y >= yEnd)
                     {
@@ -260,7 +242,7 @@ public class SlickMaze extends BasicGame
                         {
                             pressedUp = false;
                             currentCheckpoint = "4C";
-                            StartPage.showPopup(currentCheckpoint);
+                            MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                  
                         }
                     }
                     
@@ -272,7 +254,6 @@ public class SlickMaze extends BasicGame
                 {
                     destinationCheckpoint = "5A";
                     String coords[] = this.getCoordinates(currentCheckpoint, destinationCheckpoint).split(",");
-                    System.out.println(this.getCoordinates(currentCheckpoint, destinationCheckpoint));
                     int xEnd = Integer.parseInt(coords[1].split(";")[0]);                
                     if(x <= xEnd)
                     {
@@ -289,7 +270,7 @@ public class SlickMaze extends BasicGame
                         {
                             pressedRight = false;
                             currentCheckpoint = "5A";
-                            StartPage.showPopup(currentCheckpoint);
+                            MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                    
                         }
                     }
                 }
@@ -308,7 +289,7 @@ public class SlickMaze extends BasicGame
             {
                 pressedDown = false;
                 currentCheckpoint = "5A";
-                StartPage.showPopup(currentCheckpoint);
+                MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                   
                 
             }
         }
@@ -327,7 +308,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedRight = false;
                         currentCheckpoint = "5C";
-                        StartPage.showPopup(currentCheckpoint);
+                        MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                    
                     }
                 }
                 else if (pressedDown)
@@ -344,7 +325,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedDown = false;
                         currentCheckpoint = "5B";
-                        StartPage.showPopup(currentCheckpoint);
+                        MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                    
                     }
                 }
             
@@ -364,7 +345,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedRight = false;
                         currentCheckpoint = "6A";
-                        StartPage.showPopup(currentCheckpoint);
+                        MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                    
                     }
                 }
         }
@@ -374,7 +355,6 @@ public class SlickMaze extends BasicGame
                 {
                     destinationCheckpoint = "6B";
                     String coords[] = this.getCoordinates(currentCheckpoint, destinationCheckpoint).split(",");
-                    System.out.println(this.getCoordinates(currentCheckpoint, destinationCheckpoint));
                     int yEnd = Integer.parseInt(coords[1].split(";")[1]);                
                     if(y <= yEnd)
                     {
@@ -391,7 +371,7 @@ public class SlickMaze extends BasicGame
                         {
                             pressedDown = false;
                             currentCheckpoint = "6B";
-                            StartPage.showPopup(currentCheckpoint);
+                            MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                   
                         }
                     }
                 }
@@ -402,7 +382,6 @@ public class SlickMaze extends BasicGame
                 {
                     destinationCheckpoint = "6B";
                     String coords[] = this.getCoordinates(currentCheckpoint, destinationCheckpoint).split(",");
-                    System.out.println(this.getCoordinates(currentCheckpoint, destinationCheckpoint));
                     int yEnd = Integer.parseInt(coords[1].split(";")[1]);                
                     if(y <= yEnd)
                     {
@@ -419,7 +398,7 @@ public class SlickMaze extends BasicGame
                         {
                             pressedDown = false;
                             currentCheckpoint = "6B";
-                            StartPage.showPopup(currentCheckpoint);
+                            MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                    
                         }
                     }
                 }
@@ -439,7 +418,7 @@ public class SlickMaze extends BasicGame
                     {
                         pressedRight = false;
                         currentCheckpoint = "7";
-                        StartPage.showPopup(currentCheckpoint);
+                        MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                   
                     }
                 }
         }
@@ -449,7 +428,6 @@ public class SlickMaze extends BasicGame
                 {
                     destinationCheckpoint = "7";
                     String coords[] = this.getCoordinates(currentCheckpoint, destinationCheckpoint).split(",");
-                    System.out.println(this.getCoordinates(currentCheckpoint, destinationCheckpoint));
                     int yEnd = Integer.parseInt(coords[1].split(";")[1]);                
                     if(y <= yEnd)
                     {
@@ -466,7 +444,7 @@ public class SlickMaze extends BasicGame
                         {
                             pressedDown = false;
                             currentCheckpoint = "7";
-                            StartPage.showPopup(currentCheckpoint);
+                            MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                    
                         }
                     }
                 }
@@ -485,12 +463,12 @@ public class SlickMaze extends BasicGame
             {
                 pressedDown = false;
                 currentCheckpoint = "8";
-                StartPage.showPopup(currentCheckpoint);
+                MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                  
             }
         }
         if (currentCheckpoint.equals("8"))
         {
-            StartPage.showPopup(currentCheckpoint);
+                MazeSwingGUI.showQuestion(currentCheckpoint, findCheckpointPositionInArray(currentCheckpoint));                   
         }
         
     }
@@ -500,6 +478,16 @@ public class SlickMaze extends BasicGame
         grassMap.render(0, 0);
         sprite.draw((int)x, (int)y);
         
+    }
+    public int findCheckpointPositionInArray(String checkP)
+    {
+        int startPos = -1;
+        for (int i = 0; i < checkpoints.length; i++)
+        {
+            if (checkpoints[i].equalsIgnoreCase(checkP))
+                startPos = i;
+        }
+        return startPos;
     }
     //Returns a set of 3 coordinates to indicate how to get to the destination
     //start coordinate, intermediate coordinate and final coordinate
