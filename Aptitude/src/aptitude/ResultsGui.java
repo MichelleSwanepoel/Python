@@ -8,6 +8,9 @@ package aptitude;
 import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -89,24 +92,24 @@ public class ResultsGui extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(105, 105, 105)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 88, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSave)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -119,6 +122,7 @@ public class ResultsGui extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
     private void PlotGraph(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        
         dataset.setValue(database.getNumberOfCorrectQuestions("EASY"),"Number","Easy");
         dataset.setValue(database.getNumberOfCorrectQuestions("MEDIUM"),"Number","Medium");
         dataset.setValue(database.getNumberOfCorrectQuestions("HARD"),"Number","Hard");
@@ -131,6 +135,23 @@ public class ResultsGui extends javax.swing.JFrame {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
+    private void showCorrectandIncorrect()
+    {
+        txtAEx.append("\n");
+        ArrayList<Integer> correctQs = database.getListOfCorrectQuestions();
+        for (int i = 0; i < 8; i++) 
+        {
+            if (correctQs.contains((i+1)))
+            {
+                txtAEx.append("Question "+(i+1)+"\t"+"✔"+"\n");
+            }
+            else
+            {
+                txtAEx.append("Question "+(i+1)+"\t"+"✘"+"\n");
+            }
+        }
+       
+    }
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         setLocationRelativeTo(null);
@@ -139,6 +160,10 @@ public class ResultsGui extends javax.swing.JFrame {
         txtAEx.append("Easy Questions:\t\t\t"+ database.getNumberOfCorrectQuestions("EASY")+"/2\n");
         txtAEx.append("Medium Questions:\t\t"+ database.getNumberOfCorrectQuestions("MEDIUM")+"/3\n");
         txtAEx.append("Difficult Questions:\t\t"+ database.getNumberOfCorrectQuestions("HARD")+"/3\n");
+        txtAEx.append("\nMaths Questions:\t\t"+ database.getNumberOfCorrectCategoryQuestions("Maths")+"/2\n");
+        txtAEx.append("Puzzle Questions:\t\t"+ database.getNumberOfCorrectCategoryQuestions("Puzzle")+"/3\n");
+        txtAEx.append("Language Questions:\t\t"+ database.getNumberOfCorrectCategoryQuestions("Language")+"/3\n");
+        showCorrectandIncorrect();
         
     }//GEN-LAST:event_formWindowActivated
 

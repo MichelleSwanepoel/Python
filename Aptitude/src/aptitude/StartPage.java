@@ -89,12 +89,9 @@ private static DBQueries database = new DBQueries();
         
         String name = JOptionPane.showInputDialog("Please enter your name");
         database.addUser(name);
-        /*jTextArea1.setVisible(false);
-        jTextArea1.setVisible(false);
-        jLabel1.setVisible(true);
-        txtStart.setVisible(true);
-        btnEnter.setVisible(true);
-        btnStart.setVisible(false);*/
+        database.deleteUserExistingResults();
+
+        
         this.dispose();
         new MazeSwingGUI(database).setVisible(true);
     }//GEN-LAST:event_btnStartActionPerformed

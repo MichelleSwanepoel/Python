@@ -86,13 +86,13 @@ public class DB
     {
         try
         {
-            /**String sql = ""; //create table SQL statement
+            String sql = ""; //create table SQL statement
             String DropTable1 = "DROP TABLE User";
              statement = connection.prepareStatement(DropTable1);
              statement.executeUpdate();
              String DropTable2 = "DROP TABLE UserQuest";
              statement = connection.prepareStatement(DropTable2);
-             statement.executeUpdate();*/
+             statement.executeUpdate();
              String DropTable3 = "DROP TABLE Question";
              statement = connection.prepareStatement(DropTable3);
              statement.executeUpdate();
@@ -119,6 +119,7 @@ public class DB
                     + "Answer     TEXT        NOT NULL,"
                     + "LevelID    TEXT        NOT NULL,"
                     + "Image      BLOB        NULL,"
+                    + "Category    TEXT        NOT NULL,"
                     + "FOREIGN KEY (LevelID) REFERENCES Level(LevelID))";
             this.update(createQuestion);
 
@@ -126,6 +127,9 @@ public class DB
                     + "(LevelID   TEXT PRIMARY KEY   NOT NULL,"
                     + "Score      INT     NOT NULL)";
             this.update(createLevel);
+            
+            
+            
             this.addQuest();
 
             statement.close();
@@ -159,21 +163,21 @@ public class DB
             {
                 //EASY QUESTIONS
                 //1
-                String insert = "INSERT INTO Question VALUES (1, 'In the final stretch of a marathon, you quickly ran by the person who is in second place, what place are you in? \n\nPlease write the number of the position only.','2','EASY',NULL)";
+                String insert = "INSERT INTO Question VALUES (1, 'In the final stretch of a marathon, you quickly ran by the person who is in second place, what place are you in? \n\nPlease write the number of the position only.','2','EASY',NULL,'Language')";
                 this.update(insert);
                 //2
-                insert = "INSERT INTO Question VALUES(2, 'A farmer has 17 sheep and all but 9 die, how many sheep are left?', '9', 'EASY', NULL)";
+                insert = "INSERT INTO Question VALUES(2, 'A farmer has 17 sheep and all but 9 die, how many sheep are left?', '9', 'EASY', NULL,'Maths')";
                 this.update(insert);
                 //3
-                insert = "INSERT INTO Question VALUES(3, 'Unscramble \"they see\" into a word that represents a body part.', 'the eyes', 'EASY', NULL)";
+                insert = "INSERT INTO Question VALUES(9, 'Unscramble \"they see\" into a word that represents a body part.', 'the eyes', 'EASY', NULL,'Language')";
                 this.update(insert);
 
                 //MEDIUM QUESTIONS
                 //1
-                insert = "INSERT INTO Question VALUES (4, 'Given: \"XYZ\" \n\nYou may only swap adjacent letters, what are the fewest swaps to attain \"ZYX?\"','3','MEDIUM',NULL)";
+                insert = "INSERT INTO Question VALUES (3, 'Given: \"XYZ\" \n\nYou may only swap adjacent letters, what are the fewest swaps to attain \"ZYX?\"','3','MEDIUM',NULL,'Language')";
                 this.update(insert);
                 //2
-                insert = "INSERT INTO Question VALUES (5, 'There are 5 houses in 5 different colours. In each house lives a person of a different nationality. The 5 owners drink a certain type of beverage, smoke a certain brand of cigar, and keep a certain pet. Using the clues below can you determine who owns the fish?\n"
+                insert = "INSERT INTO Question VALUES (4, 'There are 5 houses in 5 different colours. In each house lives a person of a different nationality. The 5 owners drink a certain type of beverage, smoke a certain brand of cigar, and keep a certain pet. Using the clues below can you determine who owns the fish?\n"
                         + "The Brit lives in a red house.\n"
                         + "The Swede keeps dogs as pets.\n"
                         + "The Dane drinks tea.\n"
@@ -189,10 +193,13 @@ public class DB
                         + "The German smokes Prince.\n"
                         + "The Norwegian lives next to the blue house.\n"
                         + "The man who smokes Blend has a neighbour who drinks water.\n\n"
-                        + "Note, please only write the nationality of the person','German','MEDIUM',NULL)";
+                        + "Note: please only write the nationality of the person\n"
+                        + "i.e. if your answer is the German, write: \"German\"','German','MEDIUM',NULL,'Puzzle')";
                 this.update(insert);
                 //3
-                insert = "INSERT INTO Question VALUES (6, 'If ROSE → URVH, write PLUM and MEDICINE. Please separate the answers with one space.','YOXP PHGLFLQH','MEDIUM',NULL)";
+                insert = "INSERT INTO Question VALUES (5, 'If the word \"ROSE\" translates to \"URVH\", "
+                        + "then write the tranlations for \"PLUM\" and the for \"MEDICINE\". \n\n"
+                        + "Please separate the two answers with a single space.','YOXP PHGLFLQH','MEDIUM',NULL,'Language')";
                 this.update(insert);
                 
                 //HARD QUESTIONS
@@ -204,11 +211,11 @@ public class DB
                 byteArr.flush();
                 byte[] imageInByte = byteArr.toByteArray();
                 byteArr.close();
-                insert = "INSERT INTO Question VALUES (?, ?, ?, ?, ?)";
+                insert = "INSERT INTO Question VALUES (?, ?, ?, ?, ?, ?)";
                 PreparedStatement stm = connection.prepareStatement(insert);
-                stm.setInt(1, 7);
-                stm.setString(2, "4 criminals are caught and are to be punished. The judge allows them to be freed if they can solve a puzzle. If they do not, they will be hung. They agreed.The 4 criminals are lined up on some steps (shown in picture). They are all facing in the same direction. A wall separates the fourth man from the other three."
-                        + "The men are not allowed to talk to each other, each man cannot see behind him, 3 cant see 4. They must yell out their own hat colour (black or white). WHo yells first?\n"
+                stm.setInt(1, 6);
+                stm.setString(2, "4 criminals are caught and are to be punished. The judge allows them to be let free if they can solve a puzzle. If they do not, they will be hanged. They agreed. The 4 criminals are shown in the picture. They are all facing in the same direction. A wall separates the fourth man from the other three."
+                        + "The men are not allowed to talk to each other, each man cannot see behind him, and man 3 cannot see man 4. They must yell out their own hat colour (black or white). Who yells first?\n"
                         + "So to summarise:\n"
                         + "Man 1 can see Man 2 and Man 3.\n"
                         + "Man 2 can see Man 3.\n"
@@ -220,12 +227,13 @@ public class DB
                 stm.setString(3, "2");
                 stm.setString(4, "HARD");
                 stm.setBytes(5, imageInByte);
+                stm.setString(6, "Puzzle");
                 stm.executeUpdate();
                 //2
-                insert = "INSERT INTO Question VALUES (8, 'A train is running at a speed of 40 km/h and it crosses a post in 18 seconds. What is the length of the train in meter?','200','HARD',NULL)";
+                insert = "INSERT INTO Question VALUES (7, 'A train is running at a speed of 40 km/h and it crosses a post in 18 seconds. What is the length of the train in metres?','200','HARD',NULL,'Maths')";
                 this.update(insert);
                 //3
-                insert = "INSERT INTO Question VALUES (9, 'Through the door, you come across a chest, it is locked, but seems to have a strange unlocking mechanism. To unlock it, you are required to solve the following and enter the resulting code: The six cards shown below were turned face down, \"shuffled\" (i.e.. re-arranged), and put in a pile, one on top of each other. Each card has an obvious numeric value. In addition, the \"J\", \"Q\", and \"K\" have values of 11, 12, and 13 respectively. Make use of the information provided in the specifications to determine each cards position in the pile (top to bottom). \n"
+                insert = "INSERT INTO Question VALUES (8, 'Through the door, you come across a chest, it is locked, but seems to have a strange unlocking mechanism. To unlock it, you are required to solve the following and enter the resulting code: The six cards shown below were turned face down, \"shuffled\" (i.e.. re-arranged), and put in a pile, one on top of each other. Each card has an obvious numeric value. In addition, the \"J\", \"Q\", and \"K\" have values of 11, 12, and 13 respectively. Make use of the information provided in the specifications to determine each cards position in the pile (top to bottom). \n"
                         + "3 clubs\n"
                         + "K clubs\n"
                         + "6 diamonds\n"
@@ -239,7 +247,8 @@ public class DB
                         + "3. A three is directly above the six.\n"
                         + "4. One red card is directly on top of the other.\n"
                         + "5. A black card is on the very top.\n"
-                        + "6. The bottom card has the value of the sum of three other face down cards','736Q3K','HARD',NULL)";
+                        + "6. The bottom card has the value of the sum of three other face down cards.\n"
+                        + "Format your answer according to the following example for the top to bottom order: \"3QK736\"','736Q3K','HARD',NULL,'Puzzle')";
                 this.update(insert);
             }
 

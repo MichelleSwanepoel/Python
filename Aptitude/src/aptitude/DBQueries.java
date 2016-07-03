@@ -3,6 +3,8 @@ package aptitude;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DBQueries
 {
@@ -165,7 +167,58 @@ public class DBQueries
         
         return score;
     }
-    
+    public void deleteUserExistingResults()
+    {
+        try 
+        {
+            db.update("DELETE FROM UserQuest WHERE QuestID = "+userId);
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DBQueries.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public ArrayList<Integer> getListOfCorrectQuestions()
+    {
+        ArrayList<Integer> correctQs = null;
+        try 
+        {
+            ResultSet rs = db.query("SELECT QuestID FROM UserQuest WHERE UserQuest.UserID=" + userId);
+            correctQs = new ArrayList();
+            while (rs.next())
+            {
+                correctQs.add(rs.getInt("QuestID"));
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DBQueries.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return correctQs;
+    }
+    public int getNumberOfCorrectCategoryQuestions(String category)
+    {
+        int questNum = 0;
+        
+        try
+        {            
+            ResultSet result = db.query("SELECT Question.Category FROM Question, UserQuest WHERE UserQuest.UserID=" + userId + " AND Question.QID=UserQuest.QuestID");
+            while (result.next())
+            {
+                if (result.getString("Category").equals(category))
+                {
+                    questNum++;
+
+                }
+            }
+        }
+        catch (SQLException ex)
+        {
+            System.out.println(ex);
+        }
+        
+        return questNum;
+    }
     public int getNumberOfCorrectQuestions(String difficulty)
     {
         int questNum = 0;

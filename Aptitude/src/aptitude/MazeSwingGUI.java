@@ -45,6 +45,7 @@ public class MazeSwingGUI extends javax.swing.JFrame {
         database = _database;
         manager = new QuestionManager(database);
         questionCounter = 0;
+        btnResults.setEnabled(false);
         try 
         {
             initComponents();
@@ -89,8 +90,8 @@ public class MazeSwingGUI extends javax.swing.JFrame {
                 { 
                     url = new URL("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png");
                     image = ImageIO.read(url);
-                    ImageIcon icon = new ImageIcon(resizepic(image, jLabel1.getWidth(),jLabel1.getHeight()));
-                    jLabel1.setIcon(icon);
+                    ImageIcon icon = new ImageIcon(resizepic(image, lblImage.getWidth(),lblImage.getHeight()));
+                    lblImage.setIcon(icon);
                 } 
                 catch (IOException ex) 
                 {
@@ -104,8 +105,8 @@ public class MazeSwingGUI extends javax.swing.JFrame {
                {
                    BufferedImage bi = ImageIO.read(in);
                    image = BufferedImtoIm(bi);
-                   ImageIcon icon = new ImageIcon(resizepic(image, jLabel1.getWidth(),jLabel1.getHeight()));
-                   jLabel1.setIcon(icon);
+                   ImageIcon icon = new ImageIcon(resizepic(image, lblImage.getWidth(),lblImage.getHeight()));
+                   lblImage.setIcon(icon);
                } 
                catch (IOException ex) 
                {
@@ -195,8 +196,8 @@ public class MazeSwingGUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAQ = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        lblImage = new javax.swing.JLabel();
+        btnResults = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -221,10 +222,10 @@ public class MazeSwingGUI extends javax.swing.JFrame {
         txtAQ.setWrapStyleWord(true);
         jScrollPane1.setViewportView(txtAQ);
 
-        jButton1.setText("View Results");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnResults.setText("View Results");
+        btnResults.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnResultsActionPerformed(evt);
             }
         });
 
@@ -236,8 +237,8 @@ public class MazeSwingGUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(140, 140, 140)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnResults, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(150, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -246,9 +247,9 @@ public class MazeSwingGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnResults)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -273,10 +274,10 @@ public class MazeSwingGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResultsActionPerformed
         // TODO add your handling code here:
         new ResultsGui(database).setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnResultsActionPerformed
 
     private static void proceed()
     {
@@ -288,8 +289,8 @@ public class MazeSwingGUI extends javax.swing.JFrame {
         
         if (questionCounter == 8)
         {
-            //txtAQ.setText("No more moves!\n\nSave your results!");
-            
+            txtAQ.setText("No more moves!\n\nClick to view your results!");
+            btnResults.setEnabled(true);
             new ResultsGui(database).setVisible(true);
         }
 
@@ -312,11 +313,11 @@ public class MazeSwingGUI extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private static javax.swing.JLabel jLabel1;
+    private static javax.swing.JButton btnResults;
     private javax.swing.JPanel jPanel1;
     private static javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private static javax.swing.JLabel lblImage;
     private static javax.swing.JTextArea txtAQ;
     // End of variables declaration//GEN-END:variables
 }
