@@ -49,14 +49,15 @@ public class MazeSwingGUI extends javax.swing.JFrame {
         {
             initComponents();
             canvas = new CanvasGameContainer(new SlickMaze(("1")));
-            canvas.setBounds(0,0,630,800);
+            canvas.setBounds(0,0,630,630);
             this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             this.setExtendedState(MAXIMIZED_BOTH);
             
             jPanel1.add(canvas);
             this.setVisible(true);
             canvas.start();
-            
+            canvas.setFocusable(true);
+            canvas.requestFocus();
             
         } 
         catch (SlickException ex) 
@@ -128,12 +129,12 @@ public class MazeSwingGUI extends javax.swing.JFrame {
             {
                 if(IsNumber(userAnswer)&& !IsNumber(correctAnswer))
                 {
-                    JOptionPane.showMessageDialog(null,"Please enter a word or sentence");
+                    JOptionPane.showMessageDialog(null,"Please enter a word or sentence","Error",JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
                 else if(!IsNumber(userAnswer)&& IsNumber(correctAnswer))
                 {
-                    JOptionPane.showMessageDialog(null,"Please enter a number");
+                    JOptionPane.showMessageDialog(null,"Please enter a number","Error",JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
             }
@@ -142,11 +143,16 @@ public class MazeSwingGUI extends javax.swing.JFrame {
        return true;
 
     }
+    private void formWindowClosed(java.awt.event.WindowEvent evt) 
+    {                   
+        canvas.dispose();
+        this.dispose();
+        System.exit(0);
+    }
     public static void showQuestion(String checkPoint, int position)
     {
-        canvas.setFocusable(true);
-        canvas.requestFocus();
-        setImage();
+        
+        
         int qID = Integer.parseInt(checkPoint.substring(0,1));
         switch (qID)
         {
@@ -167,11 +173,12 @@ public class MazeSwingGUI extends javax.swing.JFrame {
         }
         positionInDirectionsArray = position;
         txtAQ.setText("Question "+(questionCounter+1)+"\n\n"+manager.myquestion.getQuestion());
-        userAnswer = JOptionPane.showInputDialog("If your answer is a number,enter the digits. Otherwise enter the characters");
+        setImage();
+        userAnswer = JOptionPane.showInputDialog("Your answer:");
         boolean flag = dealWithAnswer();
         while (! flag)
         {
-            userAnswer = JOptionPane.showInputDialog("If your answer is a number,enter the digits. Otherwise enter the characters");
+            userAnswer = JOptionPane.showInputDialog("Your answer:");
             flag = dealWithAnswer();
         }
         
@@ -189,11 +196,12 @@ public class MazeSwingGUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAQ = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setForeground(new java.awt.Color(240, 240, 240));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -213,6 +221,13 @@ public class MazeSwingGUI extends javax.swing.JFrame {
         txtAQ.setWrapStyleWord(true);
         jScrollPane1.setViewportView(txtAQ);
 
+        jButton1.setText("View Results");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -220,7 +235,9 @@ public class MazeSwingGUI extends javax.swing.JFrame {
             .addComponent(jScrollPane1)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(140, 140, 140)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(150, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -230,7 +247,9 @@ public class MazeSwingGUI extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -254,15 +273,20 @@ public class MazeSwingGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        new ResultsGui(database).setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private static void proceed()
     {
        //boolean random = StartPage.userdb.addQuestionToListOfCorrectQuestions(q, Ans);
         manager.saveAnswer(userAnswer);
-        txtAQ.setText("Time to move your sprite!\n\nAvailable directions: "+ directions[positionInDirectionsArray]);
+        txtAQ.setText("Time to move your sprite!\n\nUse the arrow keys!\n\nAvailable directions: "+ directions[positionInDirectionsArray]);
 
         questionCounter++;
         
-        if (questionCounter == 2)
+        if (questionCounter == 8)
         {
             //txtAQ.setText("No more moves!\n\nSave your results!");
             
@@ -280,9 +304,15 @@ public class MazeSwingGUI extends javax.swing.JFrame {
         }
         return true;
     }
+    public static void callFocus()
+    {
+        canvas.setFocusable(true);
+        canvas.requestFocus();
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private static javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private static javax.swing.JPanel jPanel2;

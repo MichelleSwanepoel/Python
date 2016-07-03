@@ -159,18 +159,18 @@ public class DB
             {
                 //EASY QUESTIONS
                 //1
-                String insert = "INSERT INTO Question VALUES(1, 'Unscramble \"they see\" into a word that represents a body part.', 'the eyes', 'EASY', NULL)";
+                String insert = "INSERT INTO Question VALUES (1, 'In the final stretch of a marathon, you quickly ran by the person who is in second place, what place are you in? \n\nPlease write the number of the position only.','2','EASY',NULL)";
                 this.update(insert);
                 //2
                 insert = "INSERT INTO Question VALUES(2, 'A farmer has 17 sheep and all but 9 die, how many sheep are left?', '9', 'EASY', NULL)";
                 this.update(insert);
                 //3
-                insert = "INSERT INTO Question VALUES (3, 'In the final stretch of a marathon, you quickly ran by the person who is in second place, what place are you in? Note, please write the number of the poisiton only.','2','EASY',NULL)";
+                insert = "INSERT INTO Question VALUES(3, 'Unscramble \"they see\" into a word that represents a body part.', 'the eyes', 'EASY', NULL)";
                 this.update(insert);
 
                 //MEDIUM QUESTIONS
                 //1
-                insert = "INSERT INTO Question VALUES (4, 'XYZ \nYou may only swap adjacent letters, what are the fewest swaps for ZYX?','3','MEDIUM',NULL)";
+                insert = "INSERT INTO Question VALUES (4, 'Given: \"XYZ\" \n\nYou may only swap adjacent letters, what are the fewest swaps to attain \"ZYX?\"','3','MEDIUM',NULL)";
                 this.update(insert);
                 //2
                 insert = "INSERT INTO Question VALUES (5, 'There are 5 houses in 5 different colours. In each house lives a person of a different nationality. The 5 owners drink a certain type of beverage, smoke a certain brand of cigar, and keep a certain pet. Using the clues below can you determine who owns the fish?\n"

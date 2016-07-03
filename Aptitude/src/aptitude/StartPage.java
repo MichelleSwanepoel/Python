@@ -42,15 +42,12 @@ private static DBQueries database = new DBQueries();
     private void initComponents() {
 
         btnStart = new javax.swing.JButton();
-        btnEnter = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        txtStart = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MazeProg");
+        setTitle("Aptitude Test");
         setPreferredSize(new java.awt.Dimension(469, 352));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -68,38 +65,18 @@ private static DBQueries database = new DBQueries();
             }
         });
         getContentPane().add(btnStart);
-        btnStart.setBounds(180, 220, 57, 30);
-
-        btnEnter.setVisible(false);
-        btnEnter.setText("Enter");
-        btnEnter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnterActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnEnter);
-        btnEnter.setBounds(180, 170, 59, 23);
-
-        jLabel1.setVisible(false);
-        jLabel1.setText("Firstly: unscramble \"tarts\" into a new beginning");
-        jLabel1.setToolTipText("");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(80, 70, 358, 14);
-
-        txtStart.setVisible(false);
-        getContentPane().add(txtStart);
-        txtStart.setBounds(170, 110, 88, 30);
+        btnStart.setBounds(140, 190, 160, 30);
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Navigate your way through the maze. Answer any questions that may pop up. Your results will be shown upon completion");
+        jTextArea1.setText("Help your character navigate the maze!\n\nYou will need to do your best to answer any questions that appear along the way. \n\nYour results will be shown upon completion, good luck!");
         jTextArea1.setWrapStyleWord(true);
         jScrollPane1.setViewportView(jTextArea1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(37, 11, 350, 140);
+        jScrollPane1.setBounds(10, 20, 420, 150);
         getContentPane().add(jLabel2);
         jLabel2.setBounds(0, 0, 0, 290);
 
@@ -109,36 +86,23 @@ private static DBQueries database = new DBQueries();
     
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         // TODO add your handling code here:
+        
         String name = JOptionPane.showInputDialog("Please enter your name");
         database.addUser(name);
-        jTextArea1.setVisible(false);
+        /*jTextArea1.setVisible(false);
         jTextArea1.setVisible(false);
         jLabel1.setVisible(true);
         txtStart.setVisible(true);
         btnEnter.setVisible(true);
-        btnStart.setVisible(false);
-        
+        btnStart.setVisible(false);*/
+        this.dispose();
+        new MazeSwingGUI(database).setVisible(true);
     }//GEN-LAST:event_btnStartActionPerformed
 
     
-    private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
-        // TODO add your handling code here:
-        String Ans=txtStart.getText();
-        //myQuestion =  new QuestionGui(database);
-      
-        if(Ans.toLowerCase().equals("start"))
-        {
-           this.dispose();
-
-           new MazeSwingGUI(database).setVisible(true);
-          
-         } 
-     
-    }//GEN-LAST:event_btnEnterActionPerformed
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        jLabel2.setSize(this.getSize());
+        //jLabel2.setSize(this.getSize());
         setLocationRelativeTo(null);
         
     }//GEN-LAST:event_formWindowActivated
@@ -183,12 +147,9 @@ private static DBQueries database = new DBQueries();
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEnter;
     private javax.swing.JButton btnStart;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField txtStart;
     // End of variables declaration//GEN-END:variables
 }
